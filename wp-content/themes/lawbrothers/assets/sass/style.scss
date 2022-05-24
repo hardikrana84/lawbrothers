@@ -1,0 +1,22 @@
+@import "abstracts/layout";
+@import "abstracts/index";
+
+// Settings:
+
+@import "base/colors";
+@import "base/fonts";
+@import "base/icons";
+@import "base/button";
+@import "base/type";
+@import "base/form";
+
+// component
+@import "component/header";
+@import "component/footer";
+@import "component/home-slider";
+@import "component/sub-banner";
+@import "component/our-story";
+@import "component/our-purpose";
+@import "component/our-leaders";
+@import "component/platinum-member";
+@import "component/our-team";

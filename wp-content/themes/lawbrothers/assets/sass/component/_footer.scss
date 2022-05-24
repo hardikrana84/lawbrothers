@@ -1,0 +1,81 @@
+footer {
+    background-color: $bginterface-lightergrey;
+    padding-top: 6rem;
+    padding-bottom: 7rem;
+
+    .footer-block {
+        width: 33.33%;
+
+        ul {
+            li {
+                padding: 1rem 0;
+
+                a {
+                    @extend %o-body-medium;
+                    color: $interface-lighterblack;
+                    
+                }
+            }
+        }
+        h2 {
+            font-size: size(subtitle, medium);
+            line-height: lineheight(paragraph, large);
+            color: $interface-black;
+            margin-bottom: 2rem;
+        }
+        p {
+            font-size: size(body, medium);
+            line-height: lineheight(subtitle, large);
+            color: $interface-lighterblack; 
+        }
+
+        .address {
+            .linked-in-link {
+                @extend %o-paragraph-small;
+                color: $interface-lightblack;
+                padding-top: 2.5rem;
+
+                a{
+                    color: #0675AE;
+                    border-bottom: 1px solid #0675AE;
+                    display: inline;
+                    text-underline-offset: 2px;
+                    font-weight: weight(bold);
+
+                    span {
+                        padding-left: 0.3rem;
+                    }
+                }
+            }
+
+            a {
+                color: $brand-primary;
+                @extend %o-paragraph-small;
+                padding-top: 2rem;
+                display: block;
+                font-weight: weight(bold);
+            }
+        }
+        
+        .menu-links-menu-container ul {
+            display: flex;
+            flex-wrap: wrap;
+
+            li {
+                width: 50%;
+            }
+        }
+        
+    }
+}
+.footer-btm {
+    .widget {
+        margin-bottom: 0;
+        padding: 2rem 0;
+
+        p {
+            @extend %o-paragraph-small;
+            color: $interface-black;
+        }
+    }
+}

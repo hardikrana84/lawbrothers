@@ -1,0 +1,25 @@
+.platinum-member {
+    padding-left: calc((100vw - 1440px) / 2);
+    margin-top: 14.4rem;
+
+    .platinum-member-inner {
+        background-color: $bginterface-lightergrey;
+        padding: 8rem 32.7rem 8rem 30.6rem;
+        display: flex;
+        align-items: center;
+
+        .platinum-member-right {
+            img {
+                --angle: 95deg;
+                transition: all ease-in-out 0.5s;
+                background: linear-gradient(#fff, #fff) padding-box, linear-gradient(var(--angle), #eefff5, #009A44) border-box;
+                border: 2px solid transparent;
+                animation: 3s rotate linear infinite;
+                box-shadow: 15px 18px 60px rgb(0 0 0 / 10%);
+            }
+        }
+
+    }
+
+    
+}

@@ -1,0 +1,285 @@
+$image-directory: "../images/";
+html {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: lining-nums;
+  height: auto;
+  font-size: $font-size-base;
+  margin-top: 0 !important;
+}
+body {
+  margin: 0;
+  padding: 0;
+  color: $interface-black;
+  font-family: family(primary);
+  font-size: 1.6rem;
+  line-height: 2rem;
+}
+
+*:focus {
+  outline: none !important;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+a,
+a:hover {
+  text-decoration: none;
+}
+button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.btn-check:focus + .btn,
+.btn:focus,
+.btn-primary:active:focus {
+  box-shadow: none;
+}
+ul {
+  list-style: none;
+}
+
+blockquote,
+body,
+caption,
+dd,
+dl,
+fieldset,
+figure,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+legend,
+ol,
+p,
+pre,
+table,
+td,
+th,
+ul {
+  margin: 0;
+  padding: 0;
+}
+.o-text,
+%o-text {
+  font-family: family(primary);
+}
+
+.wpb_button,
+.wpb_content_element,
+ul.wpb_thumbnails-fluid > li {
+  margin-bottom: 0 !important;
+}
+
+// .vc_column-inner {
+//   padding: 0 !important;
+// }
+
+figure,
+figure > div {
+  width: 100%;
+}
+
+.vc_row.container {
+  margin-right: auto;
+  margin-left: auto;
+
+  > .vc_col-sm-12 > .vc_column-inner {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+%o-header--h1,
+.o-header--h1 {
+  font-size: size(title, h1);
+  line-height: lineheight(title, h1);
+
+  @include media-down(tablet) {
+    font-size: size(title, h1-tablet);
+    line-height: lineheight(title, h1-tablet);
+  }
+}
+
+%o-header--h2,
+.o-header--h2 {
+  font-size: size(title, h2);
+  line-height: lineheight(title, h2);
+
+  @include media-down(tablet) {
+    font-size: size(title, h2-tablet);
+    line-height: lineheight(title, h2-tablet);
+  }
+}
+
+%o-header--h3,
+.o-header--h3 {
+  font-size: size(title, h3);
+  line-height: lineheight(title, h3);
+
+  @include media-down(tablet) {
+    font-size: size(title, h3-tablet);
+    line-height: lineheight(title, h3-tablet);
+  }
+}
+
+%o-header--h4,
+.o-header--h4 {
+  font-size: size(title, h4);
+  line-height: lineheight(title, h4);
+
+  @include media-down(tablet) {
+    font-size: size(title, h4-tablet);
+    line-height: lineheight(title, h4-tablet);
+  }
+}
+
+%o-subheader--h1,
+.o-subheader--h1 {
+  font-size: size(subtitle, extra-large);
+  line-height: lineheight(subtitle, extra-large);
+
+  @include media-down(tablet) {
+    font-size: size(subtitle, extra-large-tablet);
+    line-height: lineheight(subtitle, extra-large-tablet);
+  }
+}
+
+%o-subheader--h2,
+.o-subheader--h2 {
+  font-size: size(subtitle, large);
+  line-height: lineheight(subtitle, large);
+
+  @include media-down(tablet) {
+    font-size: size(subtitle, large-tablet);
+    line-height: lineheight(subtitle, large-tablet);
+  }
+}
+
+%o-subheader--h3,
+.o-subheader--h3 {
+  font-size: size(subtitle, medium);
+  line-height: lineheight(subtitle, medium);
+
+  @include media-down(tablet) {
+    font-size: size(subtitle, medium-tablet);
+    line-height: lineheight(subtitle, medium-tablet);
+  }
+}
+
+%o-subheader--h4,
+.o-subheader--h4 {
+  font-size: size(subtitle, small);
+  line-height: lineheight(subtitle, small);
+
+  @include media-down(tablet) {
+    font-size: size(subtitle, small-tablet);
+    line-height: lineheight(subtitle, small-tablet);
+  }
+}
+
+%o-body-large,
+.o-body-large {
+  font-size: size(body, large);
+  line-height: lineheight(body, large);
+
+  @include media-down(tablet) {
+    font-size: size(body, large-tablet);
+    line-height: lineheight(body, large-tablet);
+  }
+}
+
+%o-body-medium,
+.o-body-medium {
+  font-size: size(body, medium);
+  line-height: lineheight(body, medium);
+
+  @include media-down(tablet) {
+    font-size: size(body, medium-tablet);
+    line-height: lineheight(body, medium-tablet);
+  }
+}
+
+%o-body-small,
+.o-body-small {
+  font-size: size(body, small);
+  line-height: lineheight(body, small);
+
+  @include media-down(tablet) {
+    font-size: size(body, small-tablet);
+    line-height: lineheight(body, small-tablet);
+  }
+}
+
+%o-paragraph-large,
+.o-paragraph-large {
+  font-size: size(paragraph, large);
+  line-height: lineheight(paragraph, large);
+
+  @include media-down(tablet) {
+    font-size: size(paragraph, large-tablet);
+    line-height: lineheight(paragraph, large-tablet);
+  }
+}
+
+%o-paragraph-medium,
+.o-paragraph-medium {
+  font-size: size(paragraph, medium);
+  line-height: lineheight(paragraph, medium);
+
+  @include media-down(tablet) {
+    font-size: size(paragraph, medium-tablet);
+    line-height: lineheight(paragraph, medium-tablet);
+  }
+}
+
+%o-paragraph-small,
+.o-paragraph-small {
+  font-size: size(paragraph, small);
+  line-height: lineheight(paragraph, small);
+
+  @include media-down(tablet) {
+    font-size: size(paragraph, small-tablet);
+    line-height: lineheight(paragraph, small-tablet);
+  }
+}
+
+%o-paragraph-extra-small,
+.o-paragraph-extra-small {
+  font-size: size(paragraph, extra-small);
+  line-height: lineheight(paragraph, extra-small);
+
+  @include media-down(tablet) {
+    font-size: size(paragraph, extra-small-tablet);
+    line-height: lineheight(paragraph, extra-small-tablet);
+  }
+}
+
+.common-title {
+  @extend %o-header--h2;
+  color: $interface-black;
+  font-family: family(florian);
+  margin-bottom: 0;
+
+  strong {
+    font-weight: weight(regular);
+    color: $brand-primary;
+  }
+}
+:not(.home) .entry-title {
+  display: none;
+}
+
+.site-content {
+  background: url($image-directory + "page-bg.png") repeat left top;
+}

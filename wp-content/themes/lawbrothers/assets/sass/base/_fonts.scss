@@ -1,0 +1,314 @@
+$asset-path: "tdgcorp/assets";
+$font-directory: "../fonts";
+$font-size-zero: 0;
+$font-size-base: 62.5%;
+
+
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-Black.woff2') format('woff2'),
+      url($font-directory + '/Gotham-Black.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-Bold.woff2') format('woff2'),
+      url($font-directory + '/Gotham-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-BoldItalic.woff2') format('woff2'),
+      url($font-directory + '/Gotham-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-Book.woff2') format('woff2'),
+      url($font-directory + '/Gotham-Book.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-BookItalic.woff2') format('woff2'),
+      url($font-directory + '/Gotham-BookItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-Light.woff2') format('woff2'),
+      url($font-directory + '/Gotham-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-Light.woff2') format('woff2'),
+      url($font-directory + '/Gotham-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-LightItalic.woff2') format('woff2'),
+      url($font-directory + '/Gotham-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-Medium.woff2') format('woff2'),
+      url($font-directory + '/Gotham-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-MediumItalic.woff2') format('woff2'),
+      url($font-directory + '/Gotham-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-Thin.woff2') format('woff2'),
+      url($font-directory + '/Gotham-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-ThinItalic.woff2') format('woff2'),
+      url($font-directory + '/Gotham-ThinItalic.woff') format('woff');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-UltraItalic.woff2') format('woff2'),
+      url($font-directory + '/Gotham-UltraItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url($font-directory + '/Gotham-XLightItalic.woff2') format('woff2'),
+      url($font-directory + '/Gotham-XLightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Minion Pro';
+  src: url($font-directory + '/MinionPro-Regular.woff2') format('woff2'),
+      url($font-directory + '/MinionPro-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Times New Roman';
+  src: url($font-directory + '/TimesNewRomanPS-BoldMT.woff2') format('woff2'),
+      url($font-directory + '/TimesNewRomanPS-BoldMT.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Florian';
+  src: url($font-directory + '/FlorianBlack-Regular.woff2') format('woff2'),
+      url($font-directory + '/FlorianBlack-Regular.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+$font-family: (
+  primary: #{"Gotham",
+  sans-serif},
+  secondary: #{"Times New Roman"},
+  florian: #{"Florian"},
+  icon: #{"icomoon"},
+);
+
+$font-weight: (
+  thin: 100,
+  light: 300,
+  regular: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  extrabold: 900,
+);
+
+$font-size: (
+  title: (
+    h1: 8.2rem,
+    h1-tablet: 2.8rem,
+    h2: 7.2rem,
+    h2-tablet: 2.4rem,
+    h3: 6.2rem,
+    h3-tablet: 2rem,
+    h4: 3.6rem,
+    h4-tablet: 1.8rem,     
+  ),
+  subtitle: (
+    extra-large: 3rem,
+    extra-large-tablet: 2rem,
+    large: 2.4rem,
+    large-tablet: 1.8rem,
+    medium: 2rem,
+    medium-tablet: 1.6rem,
+    small: 1.8rem,
+    small-tablet: 1.4rem,
+  ),
+  body: (
+    large: 2rem,
+    large-tablet: 1.6rem,
+    medium: 1.8rem,
+    medium-tablet: 1.4rem,
+    small: 1.6rem,
+    small-tablet: 1.2rem,
+  ),
+  paragraph: (
+    large: 1.8rem,
+    large-tablet: 1.6rem,
+    medium: 1.6rem,
+    medium-tablet: 1.4rem,
+    small: 1.4rem,
+    small-tablet: 1.2rem,
+    extra-small: 1.2rem,
+    extra-small-tablet: 1rem,
+  ),
+  icon: (
+    large: 2rem,
+    medium: 1.8rem,
+    small: 1.6rem,
+    extra-small: 1.1rem,
+  ),
+);
+
+$line-height: (
+  title: (
+    h1: 8.2rem,
+    h1-tablet: 2.8rem,
+    h2: 7.5rem,
+    h2-tablet: 2.8rem,
+    h3: 6.2rem,
+    h3-tablet: 2rem,
+    h4: 3.6rem,
+    h4-tablet: 1.8rem,
+  ),
+  subtitle: (
+    extra-large: 4rem,
+    extra-large-tablet: 3rem,
+    large: 3.6rem,
+    large-tablet: 2.8rem,
+    medium: 3rem,
+    medium-tablet: 2.6rem,
+    small: 2.8rem,
+    small-tablet: 2.4rem,
+  ),
+  body: (
+    large: 3rem,
+    large-tablet: 2.6rem,
+    medium: 2.8rem,
+    medium-tablet: 2.4rem,
+    small: 2.6rem,
+    small-tablet: 2.2rem,
+  ),
+  paragraph: (
+    large: 2.8rem,
+    large-tablet: 2rem,
+    medium: 2.6rem,
+    medium-tablet: 1.6rem,
+    small: 2.4rem,
+    small-tablet: 1.4rem,
+    extra-small: 2rem,
+    extra-small-tablet: 1.4rem,
+  ),
+  icon: (
+    large: 2.4rem,
+    medium: 2.2rem,
+    small: 2rem,
+    extra-small: 1.5rem,
+  ),
+);
+
+@mixin font($family: null, $type: null, $size: null, $weight: null) {
+  @if $family {
+    font-family: family($family);
+  }
+  @if $type and $size {
+    font-size: map-get(map-get($font-size, $type), $size);
+  }
+  @if $weight {
+    font-weight: weight($weight); /* stylelint-disable-line */
+  }
+}
+
+@function weight($key) {
+  @if map-has-key($font-weight, $key) {
+    @return map-get($font-weight, $key);
+  }
+  @warn 'Unknown `#{$key}` in $font-weight.';
+  @return null;
+}
+
+@function family($key) {
+  @if map-has-key($font-family, $key) {
+    @return map-get($font-family, $key);
+  }
+  @warn 'Unknown `#{$key}` in $font-family.';
+  @return null;
+}
+
+@function size($key, $value) {
+  @if map-has-key($font-size, $key) {
+    @return map-get(map-get($font-size, $key), $value);
+  }
+  @warn 'Unknown `#{$key}` in $font-size.';
+  @return null;
+}
+
+@function lineheight($key, $value) {
+  @if map-has-key($line-height, $key) {
+    @return map-get(map-get($line-height, $key), $value);
+  }
+  @warn 'Unknown `#{$key}` in $line-height.';
+  @return null;
+}

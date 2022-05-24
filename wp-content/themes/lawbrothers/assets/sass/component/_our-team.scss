@@ -1,0 +1,130 @@
+.our-leaders-text {
+    @extend %o-subheader--h2;
+    max-width: 850px;
+    margin: 8.5rem auto;
+}
+
+.our-people {
+    .vc_inner {
+        display: flex;
+        margin-top: 8rem;
+        &::before,
+        &::after {
+            display: none;
+        }
+        &:nth-child(odd) {
+            .vc_col-sm-6:last-child {
+                .wpb_wrapper {
+                    text-align: right;
+                }
+            }
+        }
+        &:nth-child(even) {
+            .vc_col-sm-6:first-child {
+                order: 2;
+            }
+            .vc_col-sm-6:last-child {
+                .wpb_wrapper {
+                    text-align: left;
+                }
+            }
+        }
+    }
+    h2 {
+        @extend %o-header--h4;
+        margin-bottom: 20px;
+        & strong {
+            @extend %o-subheader--h2;
+        }
+    }
+    h5 {
+        @extend %o-subheader--h2;
+        padding-bottom: 10px;
+        margin-bottom: 4rem;
+        font-weight: 400;
+        position: relative;
+        &:after {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            height: 3px;
+            width: 100px;
+            border-radius: 5px;
+            content: "";
+            display: inline-block;
+            background-color: $brand-primary;
+            // animation: animatewidth 5s linear both;
+            // animation-iteration-count: 1;
+        }
+    }
+    p {
+        @extend %o-paragraph-large;
+        padding-bottom: 2rem;
+
+        a {
+            color: $brand-primary;
+            text-decoration: underline;
+        }
+    }
+
+    .our-people--info p {
+        font-weight: weight(bold);
+    }
+    .connect {
+        a {
+            color: $linkedin;
+            text-decoration: underline;
+            font-weight: 700;
+        }
+    }
+    .wpb_single_image {
+        display: inline-block;
+    }
+    .vc_single_image-wrapper {
+        position: relative;
+        padding: 22px 22px 0px 0px;
+
+        &::before {
+            position: absolute;
+            top: 11px;
+            right: 0px;
+            height: 1px;
+            width: 200px;
+            content: "";
+            display: inline-block;
+            background-color: #c4c4c4;
+            animation: animatewidth 5s linear;
+            animation-iteration-count: 1;
+        }
+        &::after {
+            position: absolute;
+            top: 0px;
+            right: 11px;
+            height: 200px;
+            width: 1px;
+            content: "";
+            display: inline-block;
+            background-color: #c4c4c4;
+            animation: animateheight 5s linear both;
+        }
+    }
+}
+@keyframes animatewidth {
+    0% {
+        width: 0px;
+    }
+
+    100% {
+        width: 200px;
+    }
+}
+
+@keyframes animateheight {
+    0% {
+        height: 0px;
+    }
+
+    100% {
+        height: 200px;
+    }
+}

@@ -1,0 +1,23 @@
+%button,
+.o-button, .c-button > button.vc_general.vc_btn3 {
+    font-size: size(paragraph, large);
+    line-height: lineheight(paragraph, extra-small);
+    color: $interface-white;
+    padding: 1.8rem 3.7rem;
+    border-radius: 5rem;
+    background-color: $brand-primary;
+    border: 2px solid $brand-primary;
+    transition: all 0.5s ease;
+    font-family: family(primary);
+    font-weight: weight(bold);
+    box-shadow: none;
+
+    &:hover {
+        border: 2px solid $brand-primary;
+        background-color: transparent;
+        color: $brand-primary;
+    }
+}
+
+
+

@@ -1,0 +1,37 @@
+.sub-banner {
+    max-height: 500px;
+    width: 100%;
+    position: relative;
+    display: block;
+
+    .entry-title {
+        @extend %o-header--h1;
+        @extend .container;
+        color: $interface-white;
+        font-family: family(florian);
+        position: absolute;
+        left: 0px;
+        bottom: 15%;
+        z-index: 1;
+        display: flex;
+        align-items: flex-end;
+        margin: 0px auto;
+        right: 0px;
+    }
+    .post-thumbnail {
+        position: relative;
+        display: flex;
+        &::after {
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            height: 100%;
+            width: 100%;
+            content: "";
+            display: inline-block;
+            background: linear-gradient(204.91deg, #060c10 41.74%, rgba(24, 22, 27, 0) 84.15%);
+            mix-blend-mode: hard-light;
+            opacity: 0.4;
+        }
+    }
+}

@@ -1,0 +1,55 @@
+// Breakpoints:
+$xsmall: 365px;
+$breakpoint-small: 576px; // ~ small devices
+$breakpoint-mobile: 768px; // ~ mobile
+$breakpoint-tablet: 992px; // ~ tablet
+$breakpoint-large: 1360px; // ~ tablet large
+$breakpoint-laptop: 1440px; // ~ laptop
+$breakpoint-desktop: 1450px; // ~ desktop
+$breakpoint-desktop-large: 1601px; // ~ desktop large 
+
+$mediabreakpoints: (
+  xsmall: 0,
+  mobile-small: $breakpoint-small,
+  mobile: $breakpoint-mobile,
+  tablet: $breakpoint-tablet,
+  tablet-large: $breakpoint-large,
+  laptop: $breakpoint-laptop,
+  desktop: $breakpoint-desktop,
+  desktop-large: $breakpoint-desktop-large,
+);
+
+$container-max-widths: (
+  mobile: 540px,
+  tablet: 720px,
+  tablet-large: 1280px,
+  laptop: 1280px,
+  desktop: 1470px
+) !default;
+
+$enable-grid-classes: true !default;
+
+
+// Grid:
+$grid-columns: 12 !default;
+$grid-gutter-width:  30px !default;
+$grid-row-columns: 6 !default;
+$grid-gap-cols: 5.75;
+
+
+// z-index
+$z-index: (
+  under: -1,
+  default: 0,
+  float: 1,
+  nav: 2,
+  modal: 6,
+);
+
+@function zindex($key) {
+  @if map-has-key($z-index, $key) {
+    @return map-get($z-index, $key);
+  }
+  @warn 'Unknown `#{$key}` in $z-index.';
+  @return null;
+}
