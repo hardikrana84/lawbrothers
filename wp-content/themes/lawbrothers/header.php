@@ -12,48 +12,58 @@
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
-<head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="profile" href="https://gmpg.org/xfn/11">
 
-	<?php wp_head(); ?>
+<head>
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+    <link rel="shortcut icon" sizes="16x16"
+        href="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/apple-icon/favicon.png" />
+    <link rel="apple-touch-icon" sizes="72x72"
+        href="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/apple-icon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="96x96"
+        href="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/apple-icon/apple-touch-icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="144x144"
+        href="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/apple-icon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="192x192"
+        href="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/apple-icon/apple-touch-icon-192x192.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
-<div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'lawbrothers' ); ?></a>
+    <?php wp_body_open(); ?>
+    <div id="page" class="site">
+        <a class="skip-link screen-reader-text"
+            href="#primary"><?php esc_html_e( 'Skip to content', 'lawbrothers' ); ?></a>
 
-	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$lawbrothers_description = get_bloginfo( 'description', 'display' );
-			if ( $lawbrothers_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $lawbrothers_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
-
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'lawbrothers' ); ?></button>
-			<?php
-			wp_nav_menu(
-				array(
+        <header id="masthead" class="site-header">
+            <div class="headernavrow">
+                <div class="container">
+                    <div class="brandlogo">
+                        <?php the_custom_logo(); ?>
+                    </div>
+                    <nav id="site-navigation" class="main-navigation">
+                        <button class="menu-toggle navigation-toggle" aria-controls="primary-menu"
+                            aria-expanded="false">
+                            <span class="menu-icon"><span class="icon-toggle" role="button"
+                                    aria-label="Toggle Navigation"><span class="lines"></span></span></span>
+                        </button>
+                        <div class="headerright">
+                            <div class="mobile-menu">
+                                <?php
+				wp_nav_menu( array(
 					'theme_location' => 'menu-1',
-					'menu_id'        => 'primary-menu',
-				)
-			);
-			?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
+					'menu_id' => 'primary-menu',
+				) );
+				?>
+                            </div>
+                        </div>
+                    </nav>
+                    <!-- #site-navigation -->
+                </div>
+            </div>
+        </header><!-- #masthead -->
