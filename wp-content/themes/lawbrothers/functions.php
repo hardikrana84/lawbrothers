@@ -153,8 +153,7 @@ function lawbrothers_scripts() {
 	}
 
 	wp_enqueue_style('fontawesome', get_template_directory_uri() . '/assets/css/fontawesome.min.css', array(), '');
-	wp_enqueue_style('line-awesome', get_template_directory_uri() . '/assets/css/line-awesome.min.css',array(), '' );
-	wp_enqueue_style('magnific', get_template_directory_uri() . '/assets/css/magnific-popup.css', array(), '');
+	wp_enqueue_style('line-awesome', get_template_directory_uri() . '/assets/css/line-awesome.min.css', array(), '');
 	wp_enqueue_style('slick', get_template_directory_uri() . '/assets/css/slick.css', array(), '');
 	wp_enqueue_style('slick-theme', get_template_directory_uri() . '/assets/css/slick-theme.css', array(), '');
 	wp_enqueue_style('animated', get_template_directory_uri() . '/assets/css/animate.css', array(), '');
@@ -250,6 +249,6 @@ require get_template_directory() . '/include/constants.php';
 require get_template_directory() . '/include/admin-hooks.php';
 require get_template_directory() . '/include/cpt-register.php';
 require get_template_directory() . '/include/cpt-metabox.php';
+require get_template_directory() . '/include/create-shortcodes.php';
 require get_template_directory() . '/include/custom-functions.php';
 //require get_template_directory() . '/include/theme-option.php';
-require get_template_directory() . '/include/create-shortcodes.php';

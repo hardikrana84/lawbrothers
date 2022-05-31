@@ -50,120 +50,33 @@ jQuery(document).ready(function ($) {
     arrows: false,
     autoplaySpeed: 5000,
   });
-  $('.google_review').slick({
-    slidesToShow: 1,
-    slidesToScroll: 1,
+
+  $('.home-services').slick({
+    slidesToShow: 5,
+    slidesToScroll: 5,
     autoplay: true,
     dots: true,
     arrows: true,
-    autoplaySpeed: 5000,
   });
-  $('.our-highest-slider').slick({
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    responsive: [
-      {
-        breakpoint: 1160,
-        settings: {
-          arrows: false,
-          autoplay: true,
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          arrows: false,
-          autoplay: true,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: false,
-        },
-      },
-    ],
-  });
-  $('.ourclients').slick({
-    dots: false,
-    arrows: false,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    adaptiveHeight: true,
-    rows: 3,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          arrows: true,
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          arrows: false,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          rows: 3,
-          autoplaySpeed: 2000,
-          autoplay: true,
-        },
-      },
-    ],
-  });
-  $('.testimonialslider').slick({
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: false,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          arrows: true,
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+
+  $(window).load(function () {
+    if ($(window).width() < 1025) {
+      $('.ourteamslider').slick({
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              infinite: true,
+              dots: true,
+            },
+          },
+        ],
+      });
+    } else {
+      $('.ourteamslider').unslick();
+    }
   });
 
   var $animation_elements = $('.animation');

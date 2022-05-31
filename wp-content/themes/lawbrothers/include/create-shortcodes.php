@@ -46,14 +46,14 @@ class Create_Shortcodes{
 		$atts = shortcode_atts( array('limit' => 8,),$atts);
 		$limit = $atts['limit'];
 		$args = array(
-			'post_type'      => 'ourservices',
+			'post_type'      => 'our-services',
 			'posts_per_page' => $limit,
 			'post_status'    => 'publish'
 		);
 		$slider = new WP_Query($args);
 		$slider_output = '';
 		if( $slider->have_posts() ){
-			$slider_output .= '<div class="cardrow">';
+			$slider_output .= '<div class="home-services">';
 			while ( $slider->have_posts() ) {
 				$slider->the_post();
 				$title = get_the_title();
@@ -66,7 +66,7 @@ class Create_Shortcodes{
 					<div class="card">
 					<div class="icon"><img src="'.$image.'" alt=""/> </div>
 					<div class="card-body">
-					<h3>'.$title.'</h3>
+					<h3><a href="' . $link . '">'.$title.'</a></h3>
 					<p class="short-desc">'.$excerpt.' </p>
 					<a href="' . $link . '" class="btn btn-outline-primary">Learn More</a>
 					</div>
