@@ -12,20 +12,36 @@
 ?>
 
 <footer id="colophon" class="site-footer">
-    <div class="site-info">
-        <a href="<?php echo esc_url( __( 'https://wordpress.org/', 'lawbrothers' ) ); ?>">
-            <?php
-				/* translators: %s: CMS name, i.e. WordPress. */
-				printf( esc_html__( 'Proudly powered by %s', 'lawbrothers' ), 'WordPress' );
-				?>
-        </a>
-        <span class="sep"> | </span>
-        <?php
-				/* translators: 1: Theme name, 2: Theme author. */
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'lawbrothers' ), 'lawbrothers', '<a href="http://underscores.me/">Underscores.me</a>' );
-				?>
-    </div><!-- .site-info -->
-</footer><!-- #colophon -->
+
+    <div class="footerrow1 footer-newsletter">
+        <div class="container">
+            <div class="footerblock">
+                <?php dynamic_sidebar( 'footerblock1' ); ?>
+            </div>
+            <div class="footerblock">
+                <?php dynamic_sidebar( 'footerblock2' ); ?>
+            </div>
+            <div class="footerblock">
+                <?php dynamic_sidebar( 'footerblock3' ); ?>
+            </div>
+            <div class="footerblock">
+                <?php dynamic_sidebar( 'footerblock4' ); ?>
+            </div>
+        </div>
+    </div>
+    <div class="footerrow2">
+        <div class="container">
+            <div class="footerblock">
+                <?php dynamic_sidebar( 'footerblock5' ); ?>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <div class="container">
+            <?php dynamic_sidebar( 'copyright' ); ?>
+        </div>
+    </div>
+</footer> <!-- #colophon -->
 </div><!-- #page -->
 
 <?php wp_footer(); ?>
