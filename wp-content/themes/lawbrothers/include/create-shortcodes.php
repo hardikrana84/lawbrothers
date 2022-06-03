@@ -21,21 +21,20 @@ class Create_Shortcodes{
 		$slider = new WP_Query($args);
 		$slider_output = '';
 		if( $slider->have_posts() ){
-			$slider_output .= '
-			<div class="mainslider">';
+			$slider_output .= '<div class="mainslider">';
 			while ( $slider->have_posts() ) {
 				$slider->the_post();
 				$title = get_the_title();
 				//$desc  = wp_trim_words( get_the_excerpt(), 40, '...' );
 				$editor = get_the_content();
 				$image = get_the_post_thumbnail_url(get_the_ID(),'full');
-				$slider_output .= '<div class="banneritem">
-				<figure>
+				$slider_output .= '<div class="banneritem" data-title="'.$title.'">
+					<div class="banner-img">
 					<img src="'.$image.'" alt=""/>
-					<figcaption class="bannerinfo" data-animation-in="fadeIn">
+					</div>
+					<div class="bannerinfo">
 						<div class="description">'.$editor.'</div>
-					</figcaption>
-				</figure>
+					</div>
 				</div>';
 			}
 			$slider_output .= '</div>';

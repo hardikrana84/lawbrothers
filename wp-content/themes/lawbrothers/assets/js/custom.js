@@ -42,16 +42,19 @@ jQuery(document).ready(function ($) {
     }
   });
 
-  $('.mainslider').slick({
+  jQuery('.mainslider').slick({
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
-    dots: false,
-    arrows: false,
-    autoplaySpeed: 5000,
+    autoplay: true,
+    dots: true,
+    arrows: true,
+    customPaging: function (slider, i) {
+      var title = $(slider.$slides[i]).data('title');
+      return '<a class="title"> ' + title + ' </a>';
+    },
   });
 
-  $('.home-services').slick({
+  jQuery('.home-services').slick({
     slidesToShow: 5,
     slidesToScroll: 5,
     autoplay: true,
@@ -59,9 +62,9 @@ jQuery(document).ready(function ($) {
     arrows: true,
   });
 
-  $(window).load(function () {
-    if ($(window).width() < 1025) {
-      $('.ourteamslider').slick({
+  jQuery(window).load(function () {
+    if (jQuery(window).width() < 1025) {
+      jQuery('.ourteamslider').slick({
         responsive: [
           {
             breakpoint: 1024,
@@ -74,8 +77,6 @@ jQuery(document).ready(function ($) {
           },
         ],
       });
-    } else {
-      $('.ourteamslider').unslick();
     }
   });
 
