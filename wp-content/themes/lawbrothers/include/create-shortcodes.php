@@ -9,6 +9,7 @@ class Create_Shortcodes{
 		add_shortcode('video-categories-list', array($this, 'video_categories_list_shortcode'));
 		add_shortcode('articles', array($this, 'article_shortcode'));
 		add_shortcode('articles-categories-list', array($this, 'article_categories_list_shortcode'));
+		add_shortcode('clientslider', array($this, 'clientslider_shortcode'));
 	}
 	public function homeslider_shortcode($atts){
 		$atts = shortcode_atts( array('limit' => 8,),$atts);
@@ -97,7 +98,9 @@ class Create_Shortcodes{
 				$phonenumber = get_post_meta($post_id, 'phonenumber', true);
 				$facebook_url = get_post_meta($post_id, 'facebook_url', true);
 				$twitter_url = get_post_meta($post_id, 'twitter_url', true);
+				$instagram_url = get_post_meta($post_id, 'instagram_url', true);
 				$linkedin_url = get_post_meta($post_id, 'linkedin_url', true);
+				$youtube_url = get_post_meta($post_id, 'youtube_url', true);
 				$desc  = wp_trim_words( get_the_excerpt(), 40, '...' );
 				$editor = get_the_content();
 				$excerpt = get_the_excerpt();
@@ -113,17 +116,20 @@ class Create_Shortcodes{
 						<a href="' . $link . '">' .$image. '</a>
 					</div>
 					<div class="card-body">
-						<h2><strong>'.$designation.'</strong> '.$title.'</h2>
+						<h5> '.$title.' <span>'.$designation.'</span></h5>
 						'.$excerpt_meta.'
-						<div class="profileinfo">
+						<div class="profileinfo" style="display:none;">
 							<p><a href="mailto:' . $emailid . '"><span><i class="far fa-envelope"></i></span> : '.$emailid.'</a></p>
 							<p><a href="tel:'.$phonenumber.'"><span><i class="fas fa-phone-volume"></i></span> : '.$phonenumber.'</a></p>
+							<a href="' . $link . '" class="btn btn-outline-primary viewfullbio">View full bio</a>
 						</div>
-						<a href="' . $link . '" class="btn btn-outline-primary viewfullbio">View full bio</a>
+						
 						<div class="sociallinks">
 							<a href="'.$facebook_url.'" target="_blank"><i class="fab fa-facebook-f"></i></a>
 							<a href="'.$twitter_url.'" target="_blank"><i class="fab fa-twitter"></i></a>
+							<a href="'.$instagram_url.'" target="_blank"><i class="fab fa-instagram"></i></a>
 							<a href="'.$linkedin_url.'" target="_blank"><i class="fab fa-linkedin"></i></a>
+							<a href="'.$youtube_url.'" target="_blank"><i class="fab fa-youtube"></i></a>
 						</div>
 					</div>
 				</div>';
@@ -288,4 +294,32 @@ class Create_Shortcodes{
         }
         return $output;
     }
+
+
+	public function clientslider_shortcode($atts){
+		$atts = shortcode_atts( array('limit' => -1,),$atts);
+		$limit = $atts['limit'];
+		$args = array(
+			'post_type'      => 'clients',
+			'posts_per_page' => $limit,
+			'post_status'    => 'publish'
+		);
+		$slider = new WP_Query($args);
+		$slider_output = '';
+		if( $slider->have_posts() ){
+			$slider_output .= '
+			<div class="client-slider">';
+			while ( $slider->have_posts() ) {
+				$slider->the_post();
+				$title = get_the_title();
+//				$desc  = wp_trim_words( get_the_content(), 40, '...' );
+				$image = get_the_post_thumbnail_url(get_the_ID(),'full');
+				$slider_output .= '<div class="partnerblock">
+					<img src="'.$image.'" alt=""/>
+				</div>';
+			}
+			$slider_output .= '</div>';
+		}
+		return $slider_output;
+	}
 }
