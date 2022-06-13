@@ -63,9 +63,9 @@ jQuery(document).ready(function ($) {
   });
   $('.client-slider').slick({
     dots: true,
-    arrows: true,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    arrows: false,
+    slidesToShow: 5,
+    slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 5000,
     adaptiveHeight: true,

@@ -202,7 +202,7 @@ class Cpt_Register{
 			'label' => __( 'Client', 'text_domain' ),
 			'description' => __( 'Client Custom Post type', 'text_domain' ),
 			'labels' => $labels,
-			'menu_icon' => 'dashicons-Clients',
+			'menu_icon' => 'dashicons-format-image',
 			'supports' => array('title', 'excerpt', 'thumbnail' ),
 			'public' => true,
 			'show_ui' => true,

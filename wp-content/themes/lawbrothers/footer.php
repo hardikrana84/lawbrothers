@@ -13,7 +13,7 @@
 
 <footer id="colophon" class="site-footer">
 
-    <div class="footerrow1 footer-newsletter">
+    <div class="footerrow1">
         <div class="container">
             <div class="footerblock">
                 <?php dynamic_sidebar( 'footerblock1' ); ?>
@@ -26,13 +26,6 @@
             </div>
             <div class="footerblock">
                 <?php dynamic_sidebar( 'footerblock4' ); ?>
-            </div>
-        </div>
-    </div>
-    <div class="footerrow2">
-        <div class="container">
-            <div class="footerblock">
-                <?php dynamic_sidebar( 'footerblock5' ); ?>
             </div>
         </div>
     </div>

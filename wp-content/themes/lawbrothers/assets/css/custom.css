@@ -38,7 +38,7 @@
 ::selection {background: var(--blue); color: var(--white); text-shadow: none;}
 ::-moz-selection {background: var(--blue); color: var(--white); text-shadow: none;}
 html{ margin: 0px; padding: 0px; font-size:var(--font-size);}
-*:before, *:after{box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;-ms-box-sizing:border-box;}
+*, *:before, *:after{box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;-ms-box-sizing:border-box;}
 body{font-family: var(--font-family-montserrat); font-size: 1.6rem; line-height:normal; color:var(--gray); font-weight:500; background:var(--white);overflow-x:hidden;}
 img{ vertical-align: top;}
 a{color:var(--blue); outline:none; cursor: pointer; border:0px; text-decoration:none; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; box-shadow: none;}
@@ -244,6 +244,24 @@ header { position: absolute; top: 0px; left: 0px; right: 0px; z-index: 99;}
 
 /*.site-main{ background: url(../images/page-bg.png) repeat left top;}*/
 
+/* Footer */
+footer.site-footer{background: var(--blue);}
+.footerrow1 { padding:5rem 0px 5rem 0px; border-bottom: 1px solid var(--white30);}
+.footerrow1 .container { display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between;}
+.footerrow1 .footerblock { flex:0 1 100%; padding-right: 30px;}
+.footerrow1 .footerblock:last-child{ padding-right: 0px;}
+.footerrow1 .footerblock .widget_text{ margin-bottom: 1rem;}
+.footerrow1 .footerblock h5{ color: var(--white); text-transform: uppercase; font-weight: 800; padding-bottom: 1.5rem; margin-bottom: 1.5rem; position: relative;}
+.footerrow1 .footerblock h5:after{ position: absolute; left: 0px; bottom: 0px; width: 5rem; height: 2px; display: inline-block; content: ""; background-color: var(--green);}
+.footerrow1 .footerblock li:not(.wp-social-link){ font-size: 1.4rem; padding-bottom: 1rem; font-weight: 600;}
+.footerrow1 .footerblock p, .footerrow1 .footerblock p a{ color: var(--white); font-weight: 400;}
+.footerrow1 .footerblock .menu a{color: var(--white);}
+.footerrow1 .footerblock:last-child h5:last-of-type{ margin-top:3rem;}
+.footerrow1 .footerblock i{ margin-right: 1rem;}
+
+.copyright .widget{ margin-bottom: 0px;}
+.copyright p{ font-size: 1.2rem; color: var(--white); text-align: center; padding: 2rem;}
+
 
 .mainslider{ position: relative;}
 .mainslider .banneritem{ position: relative;}
@@ -356,3 +374,17 @@ blockquote span{ display:block; color:#333333; font-style: normal;  font-weight:
 
 /*.static-services {background: #284ea2; }*/
 .static-services h3, .static-services h4 {color:#ffffff;}
+
+
+.client-slider{ padding-bottom: 4.5rem;}
+.client-slider .slick-track{display: flex !important;}
+.client-slider .slick-slide{ height: inherit !important;}
+.client-slider .partnerblock{ margin: 0px 0px; text-align: center; display: flex; align-items: center; justify-content: center; position: relative;}
+.client-slider .partnerblock::before{ position: absolute; right: 7px; width: 5px; height: 100%; display: inline-block; content: ""; background-color: var(--gray-10); transform: skewX(-10deg);}
+.client-slider .partnerblock img{ display: inline-block; vertical-align: middle;}
+.client-slider .slick-dots{ bottom: 0px;}
+.client-slider .slick-dots li button:before{ font-size: 1.5rem; width: auto; height: auto; line-height: normal; opacity: 1; color: var(--gray-10);}
+.client-slider .slick-dots li.slick-active button:before{ color: var(--blue);}
+.client-slider .slick-arrow{ width: 50px; height: 50px; z-index: 1; background-color: var(--blue); bottom: 0px; transform:translateY(0%); top: inherit; cursor: pointer;}
+.client-slider .slick-arrow.slick-prev{ left: 50%; margin-left: -55px;}
+.client-slider .slick-arrow.slick-next{ right: 50%; margin-right: -55px;}
