@@ -68,3 +68,14 @@
                 </div>
             </div>
         </header><!-- #masthead -->
+
+        <?php if ( ! is_front_page() ) : ?>
+        <div class="subbanner">
+            <?php the_post_thumbnail(); ?>
+            <div class="bannerinfo">
+                <div class="container">
+                    <?php echo do_shortcode('[header-infobox]');?>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>

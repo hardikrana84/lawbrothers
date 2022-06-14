@@ -62,13 +62,16 @@ class Create_Shortcodes{
 				$editor = get_the_content();
 				$excerpt = get_the_excerpt();
 				$image = get_the_post_thumbnail_url(get_the_ID(),'full');
+				$page_heading = get_post_meta( get_the_ID() ,'page_heading' ,true );
+				$page_sub_heading = get_post_meta( get_the_ID() ,'page_sub_heading' ,true );
+				$feature_image2 = get_post_meta( get_the_ID() ,'feature_image2' ,true );
 				$slider_output .= '
 					<div class="card">
-					<div class="icon"><img src="'.$image.'" alt=""/> </div>
+					<div class="icon"><img src="'.$feature_image2.'" alt=""/> </div>
 					<div class="card-body">
-					<h3><a href="' . $link . '">'.$title.'</a></h3>
-					<p class="short-desc">'.$excerpt.' </p>
-					<a href="' . $link . '" class="btn btn-outline-primary">Learn More</a>
+					<h3><a href="' . $link . '">'.$page_heading.'</a></h3>
+					<p class="short-desc">'.$page_sub_heading.' </p>
+					<a href="' . $link . '" class="btn btn-outline-primary">Read More</a>
 					</div>
 					</div>';
 			}
