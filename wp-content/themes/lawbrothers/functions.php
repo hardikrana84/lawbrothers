@@ -243,6 +243,30 @@ function dc_parent_body_class( $classes ) {
 	return $classes;
 }
 
+
+// Add Breadcrumb
+function get_breadcrumb() {
+    echo '<a href="'.home_url().'">Home</a>';
+    if (is_category() || is_single()) {
+        echo " <i class='las la-angle-right'></i> <span>";
+        the_category(' &bull; ');
+            if (is_single()) {
+                echo "<span>";
+				the_title();
+				echo " </span> ";
+            }
+    } elseif (is_page()) {
+        echo " <i class='las la-angle-right'></i> <span>";
+        echo the_title();
+		echo " </span> ";
+    } elseif (is_search()) {
+        echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;Search Results for... ";
+        echo '"<em>';
+        echo the_search_query();
+        echo '</em>"';
+    }
+}
+
 add_shortcode( 'header-infobox', 'header_infobox_shortcode_cb' );
 function header_infobox_shortcode_cb(){
 	global $post;
@@ -254,7 +278,7 @@ function header_infobox_shortcode_cb(){
 	$output = '';
 	if( !is_front_page() ){
 		$output .= '
-				<h1 class="entry-title">'.$page_heading.'</h1>
+				<h1 class="entry-title" style="display: none;">'.$page_heading.'</h1>
 				<p class="subheading">'.$page_sub_heading.'</p>';
 		$output .= '';
 	}

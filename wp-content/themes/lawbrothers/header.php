@@ -56,11 +56,11 @@
                         <div class="headerright">
                             <div class="mobile-menu">
                                 <?php
-				wp_nav_menu( array(
-					'theme_location' => 'menu-1',
-					'menu_id' => 'primary-menu',
-				) );
-				?>
+                                    wp_nav_menu( array(
+                                        'theme_location' => 'menu-1',
+                                        'menu_id' => 'primary-menu',
+                                    ) );
+                                ?>
                             </div>
                         </div>
                     </nav>
@@ -71,11 +71,19 @@
 
         <?php if ( ! is_front_page() ) : ?>
         <div class="subbanner">
-            <?php the_post_thumbnail(); ?>
+            <figure>
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/banner1-1.jpg" alt="" title="">
+            </figure>
             <div class="bannerinfo">
                 <div class="container">
+                    <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
                     <?php echo do_shortcode('[header-infobox]');?>
                 </div>
+            </div>
+        </div>
+        <div class="breadcrumb">
+            <div class="container">
+                <?php get_breadcrumb(); ?>
             </div>
         </div>
         <?php endif; ?>

@@ -6,6 +6,8 @@ add_action('admin_footer', 'media_fields');
 function meta_boxes_init() {
     add_meta_box('video_meta', __('Extra Fields', 'text-domain'), 'video_meta_box_callback', array('video'), 'advanced', 'default');
     add_meta_box('our-team', __('Extra Fields', 'text-domain'), 'ourteam_sociallinks', array('our-team'), 'advanced', 'default');
+    add_meta_box('publications', __('Publications Extra Fields', 'text-domain'), 'home_publications', array('publications'), 'advanced', 'default');
+    add_meta_box('media', __('Media Extra Fields', 'text-domain'), 'home_media', array('media'), 'advanced', 'default');
 }
 
 function video_meta_box_callback() {
@@ -42,6 +44,23 @@ function ourteam_sociallinks() {
     echo '</tbody></table>';
 }
 
+function home_publications() {
+    global $post;
+    wp_nonce_field('metafield_data', 'metafield_nonce');
+    $publication_url = get_post_meta($post->ID, 'publication_url', true);
+    echo '<table class="form-table"><tbody>';
+    echo '<tr><td>Publication URL</td><td><input style="width: 70%"  id="publication_url" name="publication_url" type="text" value="' . $publication_url . '"></td></tr>';
+    echo '</tbody></table>';
+}
+
+function home_media() {
+    global $post;
+    wp_nonce_field('metafield_data', 'metafield_nonce');
+    $media_url = get_post_meta($post->ID, 'media_url', true);
+    echo '<table class="form-table"><tbody>';
+    echo '<tr><td>Media URL</td><td><input style="width: 70%"  id="media_url" name="media_url" type="text" value="' . $media_url . '"></td></tr>';
+    echo '</tbody></table>';
+}
 
 function save_fields_all($post_id) {
 	
@@ -80,6 +99,14 @@ function save_fields_all($post_id) {
         update_post_meta($post_id, 'instagram_url', $_POST['instagram_url']);
         update_post_meta($post_id, 'linkedin_url', $_POST['linkedin_url']);
         update_post_meta($post_id, 'youtube_url', $_POST['youtube_url']);
+    }
+
+    if ($post_type == 'publications') {
+        update_post_meta($post_id, 'publication_url', $_POST['publication_url']);
+    }
+
+    if ($post_type == 'media') {
+        update_post_meta($post_id, 'media_url', $_POST['media_url']);
     }
 }
 
