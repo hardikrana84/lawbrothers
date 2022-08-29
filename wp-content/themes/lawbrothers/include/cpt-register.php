@@ -11,6 +11,7 @@ class Cpt_Register{
 		add_action( 'init', array( $this, 'create_testimonials_cpt' ) );
 		add_action( 'init', array($this, 'featured_video_cpt'));
 		add_action( 'init', array($this, 'articles_cpt'));
+		add_action( 'init', array( $this, 'knowledge_hub' ) );
 	}
 	function home_slider_cpt(){
 		$labels = array(
@@ -480,7 +481,56 @@ class Cpt_Register{
 		register_taxonomy('article-category', array('article'), $args);
 	}
 
+	function knowledge_hub() {
+		$labels = array(
+			'name' => __('Knowledge-Hubs', 'Post Type General Name', 'text_domain'),
+			'singular_name' => __('Knowledge-Hub', 'Post Type Singular Name', 'text_domain'),
+			'menu_name' => __('Knowledge-Hub', 'text_domain'),
+		);
+		$args = array(
+			'label' => __('Knowledge-Hub', 'text_domain'),
+			'description' => __('Knowledge-Hub Custom Post type', 'text_domain'),
+			'labels' => $labels,
+			'menu_icon' => 'dashicons-welcome-write-blog',
+			'supports' => array('title', 'excerpt', 'thumbnail', 'page-attributes'),
+			'public' => true,
+			'show_ui' => true,
+			'show_in_menu' => true,
+			'menu_position' => 10,
+			'show_in_admin_bar' => true,
+			'show_in_nav_menus' => true,
+			'can_export' => true,
+			'has_archive' => true,
+			// 'rewrite' => array('slug' => 'about-gca/associated-districts'),
+			'hierarchical' => true,
+			'exclude_from_search' => false,
+			'show_in_rest' => true,
+			'publicly_queryable' => true,
+			'capability_type' => 'post',
+		);
 
+		register_post_type('knowledge-hub', $args);
+		$labels = array(
+			'name' => _x('Categories', 'taxonomy general name', 'text_domain'),
+			'singular_name' => _x('Categories', 'taxonomy singular name', 'text_domain'),
+		);
+		$args = array(
+			'labels' => $labels,
+			'description' => __('Knowledge-Hub Category', 'text_domain'),
+			'hierarchical' => true,
+			'public' => true,
+			'publicly_queryable' => true,
+			'show_ui' => true,
+			'show_in_menu' => true,
+			'show_in_nav_menus' => true,
+			'show_in_rest' => false,
+			'show_tagcloud' => true,
+			'show_in_quick_edit' => true,
+			'show_admin_column' => true,
+			'map_meta_cap' => true,
+		);
+		register_taxonomy('knowledge-hub-category', array('knowledge-hub'), $args);
+	}
 
 
 }

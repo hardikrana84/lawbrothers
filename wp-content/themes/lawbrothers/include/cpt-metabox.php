@@ -8,6 +8,7 @@ function meta_boxes_init() {
     add_meta_box('our-team', __('Extra Fields', 'text-domain'), 'ourteam_sociallinks', array('our-team'), 'advanced', 'default');
     add_meta_box('publications', __('Publications Extra Fields', 'text-domain'), 'home_publications', array('publications'), 'advanced', 'default');
     add_meta_box('media', __('Media Extra Fields', 'text-domain'), 'home_media', array('media'), 'advanced', 'default');
+    add_meta_box('knowledge-hub', __('Publications Extra Fields', 'text-domain'), 'knowledge_hub_meta', array('knowledge-hub'), 'advanced', 'default');
 }
 
 function video_meta_box_callback() {
@@ -62,6 +63,20 @@ function home_media() {
     echo '</tbody></table>';
 }
 
+function knowledge_hub_meta() {
+    global $post;
+    wp_nonce_field('metafield_data', 'metafield_nonce');
+    $pdf_url = get_post_meta($post->ID, 'pdf_url', true);
+    $pdf_preview = !empty($pdf_url) ? "<img src='$pdf_url' style='width:50%'>" : '';
+    echo '<table class="form-table"><tbody>';
+    echo '<tr>';
+    echo '<th>PDF</th>';
+    echo '<td><input style="width: 70%" id="pdf_url" name="pdf_url" type="text" value="' . $pdf_url . '"> <input style="width: 19%" class="media" id="pdf_url_button" name="pdf_url_button" type="button" value="Upload" /><div class="cover_preview">' . $pdf_preview . '</div></td>';
+    echo '</tr>';
+    echo '</tbody></table>';
+
+}
+
 function save_fields_all($post_id) {
 	
     if (!isset($_POST['metafield_nonce'])) {
@@ -108,6 +123,9 @@ function save_fields_all($post_id) {
     if ($post_type == 'media') {
         update_post_meta($post_id, 'media_url', $_POST['media_url']);
     }
+    if ($post_type == 'knowledge-hub') {
+        update_post_meta($post_id, 'pdf_url', $_POST['pdf_url']);
+    }
 }
 
 function media_fields() {
@@ -116,6 +134,7 @@ jQuery(document).ready(function($) {
     if (typeof wp.media !== 'undefined') {
         var _custom_media = true,
             _orig_send_attachment = wp.media.editor.send.attachment;
+
         jQuery(document).on('click', '.media', function() {
             var send_attachment_bkp = wp.media.editor.send.attachment;
             var button = $(this);

@@ -59,6 +59,10 @@
 }
 
 @media only screen and (max-width:1023px){
+  a.whatsup.webwhatapp {display:none;}
+  a.whatsup.mobilewhatapp {display:block;}
+  a.whatsup.mobilewhatapp b { display: none; }
+  a.whatsup.mobilewhatapp { font-size: 0; padding: 0; right: 50px; bottom: 40px; }
 	body{ overflow-x: hidden; font-size:14px;}
   .entry-content{ overflow-x: hidden;}
   .wpb_single_image .vc_figure, .wpb_single_image .vc_single_image-wrapper, .wpb_single_image img{ width: 100%;}

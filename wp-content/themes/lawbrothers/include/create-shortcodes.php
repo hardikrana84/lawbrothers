@@ -11,6 +11,8 @@ class Create_Shortcodes{
 		add_shortcode('video-categories-list', array($this, 'video_categories_list_shortcode'));
 		add_shortcode('articles', array($this, 'article_shortcode'));
 		add_shortcode('articles-categories-list', array($this, 'article_categories_list_shortcode'));
+		add_shortcode('knowledge-hub', array($this, 'knowledge_hub_shortcode'));
+		add_shortcode('knowledge-hub-categories-list', array($this, 'knowledge_hub_categories_list_shortcode'));
 		add_shortcode('clientslider', array($this, 'clientslider_shortcode'));
 	}
 	public function homeslider_shortcode($atts){
@@ -394,6 +396,86 @@ class Create_Shortcodes{
         }
         return $output;
     }
+
+	public function knowledge_hub_shortcode($atts){
+		$atts = shortcode_atts( array('limit' => -1,),$atts);
+		$limit = $atts['limit'];
+		$args = array(
+			'post_type'      => 'knowledge-hub',
+			'orderby' => 'menu_order',
+            'order' => 'ASC',
+			'posts_per_page' => $limit,
+			'post_status'    => 'publish'
+		);
+		$slider = new WP_Query($args);
+		$slider_output = '';
+		if( $slider->have_posts() ){
+			$slider_output .= '<div class="knowledgerow">';
+			while ( $slider->have_posts() ) {
+				$slider->the_post();
+				$title = get_the_title();
+				$link = get_the_permalink();
+				$post_id = get_the_id();
+				$pdf_url = get_post_meta($post_id, 'pdf_url', true);
+				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
+				$date = get_the_date();
+				// echo '<pre>';
+				// print_r( $postmeta1 );
+				// echo '</pre>';
+				// $image = get_the_post_thumbnail_url(get_the_ID(),'full');
+				$image = get_the_post_thumbnail(get_the_ID(), 'full');
+				$slider_output .= '<div class="card">
+					<h6>'. $title .'</h6>
+					<div class="card-img">
+						<a href="' . $pdf_url . '">' .$image. '</a>
+					</div>
+					<div class="card-body">
+						<a href="' . $pdf_url . '" class="btn knowmore">Know More</a>
+					</div>
+				</div>';
+			}
+			$slider_output .= '</div>';
+		}
+		return $slider_output;
+	}
+
+	public function knowledge_hub_categories_list_shortcode($atts) {
+        $atts = shortcode_atts(array('limit' => -1,'category'=>''), $atts);
+        $limit = $atts['limit'];
+        $category=$atts['category'];
+        $args = array(
+            'post_type' => 'knowledge-hub',
+            'posts_per_page' => $limit,
+            'post_status' => 'publish',
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+        );
+        if (!empty($category)) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'knowledge-hub-category',
+                    'field' => 'slug',
+                    'terms' => $category,
+                ),
+            );
+        }
+        $slider = new WP_Query($args);
+        $output = '';
+        if ($slider->have_posts()) {
+            $output .= '<div class="article-category"><ul>';
+            while ($slider->have_posts()) {
+                $slider->the_post();
+				$link = get_the_permalink();
+                $title = get_the_title();
+                //$content=get_the_content();
+                $id = get_the_ID();
+                $output .= '<li><a href="' . $link . '">'.$title.'</a></li>';
+            }
+            $output .= '</ul></div>';
+        }
+        return $output;
+    }
+
 
 	public function clientslider_shortcode($atts){
 		$atts = shortcode_atts( array('limit' => -1,),$atts);

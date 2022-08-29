@@ -36,9 +36,15 @@
     </div>
 </footer> <!-- #colophon -->
 </div><!-- #page -->
+<div class="whatsupapps">
+    <a href="https://web.whatsapp.com/send?phone=919460724737&amp;text=Hi" data-action="open" data-phone="919460724737"
+        target="_blank" class="whatsup webwhatapp"><span></span>Chat with us via<b>WhatsApp</b></a>
 
+    <a href="https://api.whatsapp.com/send?phone=919460724737&amp;text=Hi" data-action="open" data-phone="919460724737"
+        target="_blank" class="whatsup mobilewhatapp"><span></span>Chat with us via<b>WhatsApp</b></a>
+</div>
 <?php wp_footer(); ?>
-
+<script src="https://kit.fontawesome.com/fd3e0b88a6.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

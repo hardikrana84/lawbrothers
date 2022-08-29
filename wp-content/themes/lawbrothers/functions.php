@@ -278,7 +278,7 @@ function header_infobox_shortcode_cb(){
 	$output = '';
 	if( !is_front_page() ){
 		$output .= '
-				<h1 class="entry-title" style="display: none;">'.$page_heading.'</h1>
+				<h1 class="entry-title">'.$page_heading.'</h1>
 				<p class="subheading">'.$page_sub_heading.'</p>';
 		$output .= '';
 	}

@@ -76,7 +76,6 @@
             </figure>
             <div class="bannerinfo">
                 <div class="container">
-                    <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
                     <?php echo do_shortcode('[header-infobox]');?>
                 </div>
             </div>
