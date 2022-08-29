@@ -9,16 +9,17 @@
 
 get_header();
 ?>
-	<main id="primary" class="site-main">
-		<?php
+<main id="primary" class="site-main">
+    <div class="container no-sidebar">
+        <?php
 		while ( have_posts() ) :
 			the_post();
 
 			get_template_part( 'template-parts/content', get_post_type() );
 			the_post_navigation(
 				array(
-					'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous:', 'gross-romanick' ) . '</span> <span class="nav-title">%title</span>',
-					'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next:', 'gross-romanick' ) . '</span> <span class="nav-title">%title</span>',
+					'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous', 'hr-theme' ) . '</span> <span class="nav-title">%title</span>',
+					'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next', 'hr-theme' ) . '</span> <span class="nav-title">%title</span>',
 				)
 			);
 
@@ -29,8 +30,8 @@ get_header();
 
 		endwhile; // End of the loop.
 		?>
-		
-	</main><!-- #main -->
+    </div>
+</main><!-- #main -->
 
 <?php
 

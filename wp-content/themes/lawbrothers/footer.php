@@ -13,7 +13,7 @@
 
 <footer id="colophon" class="site-footer">
 
-    <div class="footerrow1 footer-newsletter">
+    <div class="footerrow1">
         <div class="container">
             <div class="footerblock">
                 <?php dynamic_sidebar( 'footerblock1' ); ?>
@@ -29,13 +29,6 @@
             </div>
         </div>
     </div>
-    <div class="footerrow2">
-        <div class="container">
-            <div class="footerblock">
-                <?php dynamic_sidebar( 'footerblock5' ); ?>
-            </div>
-        </div>
-    </div>
     <div class="copyright">
         <div class="container">
             <?php dynamic_sidebar( 'copyright' ); ?>
@@ -43,9 +36,15 @@
     </div>
 </footer> <!-- #colophon -->
 </div><!-- #page -->
+<div class="whatsupapps">
+    <a href="https://web.whatsapp.com/send?phone=919460724737&amp;text=Hi" data-action="open" data-phone="919460724737"
+        target="_blank" class="whatsup webwhatapp"><span></span>Chat with us via<b>WhatsApp</b></a>
 
+    <a href="https://api.whatsapp.com/send?phone=919460724737&amp;text=Hi" data-action="open" data-phone="919460724737"
+        target="_blank" class="whatsup mobilewhatapp"><span></span>Chat with us via<b>WhatsApp</b></a>
+</div>
 <?php wp_footer(); ?>
-
+<script src="https://kit.fontawesome.com/fd3e0b88a6.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

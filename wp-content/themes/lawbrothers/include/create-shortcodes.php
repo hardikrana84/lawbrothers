@@ -3,18 +3,25 @@ new Create_Shortcodes();
 class Create_Shortcodes{
 	public function __construct(){
 		add_shortcode('home-slider' , array( $this,'homeslider_shortcode' ) );
-		add_shortcode('allourservices' , array( $this,'ourservices_shortcode' ) );
 		add_shortcode('ourteam', array($this, 'ourteam_shortcode'));
+		add_shortcode('allourservices' , array( $this,'ourservices_shortcode' ) );
+		add_shortcode('home-publications', array($this, 'home_publications_shortcode'));
+		add_shortcode('home-media', array($this, 'home_media_shortcode'));
 		add_shortcode('featuredvideo', array($this, 'featuredvideo_shortcode'));
 		add_shortcode('video-categories-list', array($this, 'video_categories_list_shortcode'));
 		add_shortcode('articles', array($this, 'article_shortcode'));
 		add_shortcode('articles-categories-list', array($this, 'article_categories_list_shortcode'));
+		add_shortcode('knowledge-hub', array($this, 'knowledge_hub_shortcode'));
+		add_shortcode('knowledge-hub-categories-list', array($this, 'knowledge_hub_categories_list_shortcode'));
+		add_shortcode('clientslider', array($this, 'clientslider_shortcode'));
 	}
 	public function homeslider_shortcode($atts){
 		$atts = shortcode_atts( array('limit' => 8,),$atts);
 		$limit = $atts['limit'];
 		$args = array(
 			'post_type'      => 'homeslider',
+			'orderby' => 'menu_order',
+            'order' => 'ASC',
 			'posts_per_page' => $limit,
 			'post_status'    => 'publish'
 		);
@@ -41,45 +48,14 @@ class Create_Shortcodes{
 		}
 		return $slider_output;
 	}
-	public function ourservices_shortcode($atts){
-		$atts = shortcode_atts( array('limit' => 8,),$atts);
-		$limit = $atts['limit'];
-		$args = array(
-			'post_type'      => 'our-services',
-			'posts_per_page' => $limit,
-			'post_status'    => 'publish'
-		);
-		$slider = new WP_Query($args);
-		$slider_output = '';
-		if( $slider->have_posts() ){
-			$slider_output .= '<div class="home-services">';
-			while ( $slider->have_posts() ) {
-				$slider->the_post();
-				$title = get_the_title();
-				$link = get_the_permalink();
-				$desc  = wp_trim_words( get_the_excerpt(), 40, '...' );
-				$editor = get_the_content();
-				$excerpt = get_the_excerpt();
-				$image = get_the_post_thumbnail_url(get_the_ID(),'full');
-				$slider_output .= '
-					<div class="card">
-					<div class="icon"><img src="'.$image.'" alt=""/> </div>
-					<div class="card-body">
-					<h3><a href="' . $link . '">'.$title.'</a></h3>
-					<p class="short-desc">'.$excerpt.' </p>
-					<a href="' . $link . '" class="btn btn-outline-primary">Learn More</a>
-					</div>
-					</div>';
-			}
-			$slider_output .= '</div>';
-		}
-		return $slider_output;
-	}
+
 	public function ourteam_shortcode($atts){
 		$atts = shortcode_atts( array('limit' => 8,),$atts);
 		$limit = $atts['limit'];
 		$args = array(
 			'post_type'      => 'our-team',
+			'orderby' => 'menu_order',
+            'order' => 'ASC',
 			'posts_per_page' => $limit,
 			'post_status'    => 'publish'
 		);
@@ -97,7 +73,9 @@ class Create_Shortcodes{
 				$phonenumber = get_post_meta($post_id, 'phonenumber', true);
 				$facebook_url = get_post_meta($post_id, 'facebook_url', true);
 				$twitter_url = get_post_meta($post_id, 'twitter_url', true);
+				$instagram_url = get_post_meta($post_id, 'instagram_url', true);
 				$linkedin_url = get_post_meta($post_id, 'linkedin_url', true);
+				$youtube_url = get_post_meta($post_id, 'youtube_url', true);
 				$desc  = wp_trim_words( get_the_excerpt(), 40, '...' );
 				$editor = get_the_content();
 				$excerpt = get_the_excerpt();
@@ -113,18 +91,144 @@ class Create_Shortcodes{
 						<a href="' . $link . '">' .$image. '</a>
 					</div>
 					<div class="card-body">
-						<h2><strong>'.$designation.'</strong> '.$title.'</h2>
+						<h5> '.$title.' <span>'.$designation.'</span></h5>
 						'.$excerpt_meta.'
-						<div class="profileinfo">
+						<div class="profileinfo" style="display:none;">
 							<p><a href="mailto:' . $emailid . '"><span><i class="far fa-envelope"></i></span> : '.$emailid.'</a></p>
 							<p><a href="tel:'.$phonenumber.'"><span><i class="fas fa-phone-volume"></i></span> : '.$phonenumber.'</a></p>
+							<a href="' . $link . '" class="btn btn-outline-primary viewfullbio">View full bio</a>
 						</div>
-						<a href="' . $link . '" class="btn btn-outline-primary viewfullbio">View full bio</a>
+						
 						<div class="sociallinks">
 							<a href="'.$facebook_url.'" target="_blank"><i class="fab fa-facebook-f"></i></a>
 							<a href="'.$twitter_url.'" target="_blank"><i class="fab fa-twitter"></i></a>
+							<a href="'.$instagram_url.'" target="_blank"><i class="fab fa-instagram"></i></a>
 							<a href="'.$linkedin_url.'" target="_blank"><i class="fab fa-linkedin"></i></a>
+							<a href="'.$youtube_url.'" target="_blank"><i class="fab fa-youtube"></i></a>
 						</div>
+					</div>
+				</div>';
+			}
+			$slider_output .= '</div></div>';
+		}
+		return $slider_output;
+	}
+
+	public function ourservices_shortcode($atts){
+		$atts = shortcode_atts( array('limit' => 8,),$atts);
+		$limit = $atts['limit'];
+		$args = array(
+			'post_type'      => 'our-services',
+			'orderby' => 'menu_order',
+            'order' => 'ASC',
+			'posts_per_page' => $limit,
+			'post_status'    => 'publish'
+		);
+		$slider = new WP_Query($args);
+		$slider_output = '';
+		if( $slider->have_posts() ){
+			$slider_output .= '<div class="home-services">';
+			while ( $slider->have_posts() ) {
+				$slider->the_post();
+				$title = get_the_title();
+				$link = get_the_permalink();
+				$desc  = wp_trim_words( get_the_excerpt(), 40, '...' );
+				$editor = get_the_content();
+				$excerpt = get_the_excerpt();
+				$image = get_the_post_thumbnail_url(get_the_ID(),'full');
+				$page_heading = get_post_meta( get_the_ID() ,'page_heading' ,true );
+				$page_sub_heading = get_post_meta( get_the_ID() ,'page_sub_heading' ,true );
+				$feature_image2 = get_post_meta( get_the_ID() ,'feature_image2' ,true );
+				$slider_output .= '
+					<div class="card">
+					<div class="icon"><img src="'.$feature_image2.'" alt=""/> </div>
+					<div class="card-body">
+					<h3><a href="' . $link . '">'.$page_heading.'</a></h3>
+					<p class="short-desc">'.$page_sub_heading.' </p>
+					<a href="' . $link . '" class="btn link">Read More</a>
+					</div>
+					</div>';
+			}
+			$slider_output .= '</div>';
+		}
+		return $slider_output;
+	}
+
+	public function home_publications_shortcode($atts){
+		$atts = shortcode_atts( array('limit' => 8,),$atts);
+		$limit = $atts['limit'];
+		$args = array(
+			'post_type'      => 'publications',
+			'orderby' => 'menu_order',
+            'order' => 'ASC',
+			'posts_per_page' => $limit,
+			'post_status'    => 'publish'
+		);
+		$slider = new WP_Query($args);
+		$slider_output = '';
+		if( $slider->have_posts() ){
+			$slider_output .= '<div class="publicationrow"><div class="publication-slider">';
+			while ( $slider->have_posts() ) {
+				$slider->the_post();
+				$title = get_the_title();
+				$link = get_the_permalink();
+				$post_id = get_the_id();
+				$publication_url = get_post_meta($post_id, 'publication_url', true);
+				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
+				$date = get_the_date();
+				// echo '<pre>';
+				// print_r( $postmeta1 );
+				// echo '</pre>';
+				// $image = get_the_post_thumbnail_url(get_the_ID(),'full');
+				$image = get_the_post_thumbnail(get_the_ID(), 'full');
+				$slider_output .= '<div class="card">
+					<h6>'. $title .'</h6>
+					<div class="card-img">
+						<a href="' . $publication_url . '">' .$image. '</a>
+					</div>
+					<div class="card-body">
+						<a href="' . $publication_url . '" class="btn knowmore">Know More</a>
+					</div>
+				</div>';
+			}
+			$slider_output .= '</div></div>';
+		}
+		return $slider_output;
+	}
+
+	public function home_media_shortcode($atts){
+		$atts = shortcode_atts( array('limit' => 8,),$atts);
+		$limit = $atts['limit'];
+		$args = array(
+			'post_type'      => 'media',
+			'orderby' => 'menu_order',
+            'order' => 'ASC',
+			'posts_per_page' => $limit,
+			'post_status'    => 'publish'
+		);
+		$slider = new WP_Query($args);
+		$slider_output = '';
+		if( $slider->have_posts() ){
+			$slider_output .= '<div class="mediarow"><div class="media-slider">';
+			while ( $slider->have_posts() ) {
+				$slider->the_post();
+				$title = get_the_title();
+				$link = get_the_permalink();
+				$post_id = get_the_id();
+				$media_url = get_post_meta($post_id, 'media_url', true);
+				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
+				$date = get_the_date();
+				// echo '<pre>';
+				// print_r( $postmeta1 );
+				// echo '</pre>';
+				// $image = get_the_post_thumbnail_url(get_the_ID(),'full');
+				$image = get_the_post_thumbnail(get_the_ID(), 'full');
+				$slider_output .= '<div class="card">
+					<div class="card-img">
+						<a href="' . $media_url . '">' .$image. '</a>
+					</div>
+					<div class="card-body">
+						<a href="' . $media_url . '" class="btn knowmore">Know More</a>
 					</div>
 				</div>';
 			}
@@ -138,6 +242,8 @@ class Create_Shortcodes{
 		$limit = $atts['limit'];
 		$args = array(
 			'post_type'      => 'video',
+			'orderby' => 'menu_order',
+            'order' => 'ASC',
 			'posts_per_page' => $limit,
 			'post_status'    => 'publish'
 		);
@@ -226,6 +332,8 @@ class Create_Shortcodes{
 		$limit = $atts['limit'];
 		$args = array(
 			'post_type'      => 'article',
+			'orderby' => 'menu_order',
+            'order' => 'ASC',
 			'posts_per_page' => $limit,
 			'post_status'    => 'publish'
 		);
@@ -288,4 +396,113 @@ class Create_Shortcodes{
         }
         return $output;
     }
+
+	public function knowledge_hub_shortcode($atts){
+		$atts = shortcode_atts( array('limit' => -1,),$atts);
+		$limit = $atts['limit'];
+		$args = array(
+			'post_type'      => 'knowledge-hub',
+			'orderby' => 'menu_order',
+            'order' => 'ASC',
+			'posts_per_page' => $limit,
+			'post_status'    => 'publish'
+		);
+		$slider = new WP_Query($args);
+		$slider_output = '';
+		if( $slider->have_posts() ){
+			$slider_output .= '<div class="knowledgerow">';
+			while ( $slider->have_posts() ) {
+				$slider->the_post();
+				$title = get_the_title();
+				$link = get_the_permalink();
+				$post_id = get_the_id();
+				$pdf_url = get_post_meta($post_id, 'pdf_url', true);
+				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
+				$date = get_the_date();
+				// echo '<pre>';
+				// print_r( $postmeta1 );
+				// echo '</pre>';
+				// $image = get_the_post_thumbnail_url(get_the_ID(),'full');
+				$image = get_the_post_thumbnail(get_the_ID(), 'full');
+				$slider_output .= '<div class="card">
+					<h6>'. $title .'</h6>
+					<div class="card-img">
+						<a href="' . $pdf_url . '">' .$image. '</a>
+					</div>
+					<div class="card-body">
+						<a href="' . $pdf_url . '" class="btn knowmore">Know More</a>
+					</div>
+				</div>';
+			}
+			$slider_output .= '</div>';
+		}
+		return $slider_output;
+	}
+
+	public function knowledge_hub_categories_list_shortcode($atts) {
+        $atts = shortcode_atts(array('limit' => -1,'category'=>''), $atts);
+        $limit = $atts['limit'];
+        $category=$atts['category'];
+        $args = array(
+            'post_type' => 'knowledge-hub',
+            'posts_per_page' => $limit,
+            'post_status' => 'publish',
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+        );
+        if (!empty($category)) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'knowledge-hub-category',
+                    'field' => 'slug',
+                    'terms' => $category,
+                ),
+            );
+        }
+        $slider = new WP_Query($args);
+        $output = '';
+        if ($slider->have_posts()) {
+            $output .= '<div class="article-category"><ul>';
+            while ($slider->have_posts()) {
+                $slider->the_post();
+				$link = get_the_permalink();
+                $title = get_the_title();
+                //$content=get_the_content();
+                $id = get_the_ID();
+                $output .= '<li><a href="' . $link . '">'.$title.'</a></li>';
+            }
+            $output .= '</ul></div>';
+        }
+        return $output;
+    }
+
+
+	public function clientslider_shortcode($atts){
+		$atts = shortcode_atts( array('limit' => -1,),$atts);
+		$limit = $atts['limit'];
+		$args = array(
+			'post_type'      => 'clients',
+			'orderby' => 'menu_order',
+            'order' => 'ASC',
+			'posts_per_page' => $limit,
+			'post_status'    => 'publish'
+		);
+		$slider = new WP_Query($args);
+		$slider_output = '';
+		if( $slider->have_posts() ){
+			$slider_output .= '
+			<div class="client-slider">';
+			while ( $slider->have_posts() ) {
+				$slider->the_post();
+				$title = get_the_title();
+				//$desc  = wp_trim_words( get_the_content(), 40, '...' );
+				$image = get_the_post_thumbnail_url(get_the_ID(),'full');
+				$slider_output .= '<div class="partnerblock">
+					<img src="'.$image.'" alt=""/>
+				</div>';
+			}
+			$slider_output .= '</div>';
+		}
+		return $slider_output;
+	}
 }

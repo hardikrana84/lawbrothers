@@ -54,30 +54,168 @@ jQuery(document).ready(function ($) {
     },
   });
 
-  jQuery('.home-services').slick({
-    slidesToShow: 5,
-    slidesToScroll: 5,
-    autoplay: true,
+  $('.ourteamslider').slick({
     dots: true,
     arrows: true,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    adaptiveHeight: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   });
 
-  jQuery(window).load(function () {
-    if (jQuery(window).width() < 1025) {
-      jQuery('.ourteamslider').slick({
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true,
-            },
-          },
-        ],
-      });
-    }
+  mobileOnlySlider('.home-services', true, false, 767);
+  function mobileOnlySlider($slidername, $dots, $arrows, $breakpoint) {
+    var slider = $($slidername);
+    var settings = {
+      mobileFirst: true,
+      dots: $dots,
+      arrows: $arrows,
+      responsive: [
+        {
+          breakpoint: $breakpoint,
+          settings: 'unslick',
+        },
+      ],
+    };
+
+    slider.slick(settings);
+
+    $(window).on('resize', function () {
+      if ($(window).width() > $breakpoint) {
+        return;
+      }
+      if (!slider.hasClass('slick-initialized')) {
+        return slider.slick(settings);
+      }
+    });
+  }
+
+  $('.publication-slider').slick({
+    dots: true,
+    arrows: false,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 5000,
+    adaptiveHeight: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+  $('.media-slider').slick({
+    dots: true,
+    arrows: false,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    adaptiveHeight: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+  $('.client-slider').slick({
+    dots: true,
+    arrows: false,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    adaptiveHeight: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   });
 
   var $animation_elements = $('.animation');

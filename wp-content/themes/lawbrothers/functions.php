@@ -244,6 +244,150 @@ function dc_parent_body_class( $classes ) {
 }
 
 
+// Add Breadcrumb
+function get_breadcrumb() {
+    echo '<a href="'.home_url().'">Home</a>';
+    if (is_category() || is_single()) {
+        echo " <i class='las la-angle-right'></i> <span>";
+        the_category(' &bull; ');
+            if (is_single()) {
+                echo "<span>";
+				the_title();
+				echo " </span> ";
+            }
+    } elseif (is_page()) {
+        echo " <i class='las la-angle-right'></i> <span>";
+        echo the_title();
+		echo " </span> ";
+    } elseif (is_search()) {
+        echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;Search Results for... ";
+        echo '"<em>';
+        echo the_search_query();
+        echo '</em>"';
+    }
+}
+
+add_shortcode( 'header-infobox', 'header_infobox_shortcode_cb' );
+function header_infobox_shortcode_cb(){
+	global $post;
+	$page_id = $post->ID;
+	$page_id = ( !empty($page_id) && is_numeric($page_id) ? $page_id : get_the_ID() );
+	$page_heading = get_post_meta( $page_id ,'page_heading' ,true );
+	$page_sub_heading = get_post_meta( $page_id ,'page_sub_heading' ,true );
+	$page_banner = get_the_post_thumbnail( $page_id, 'full');
+	$output = '';
+	if( !is_front_page() ){
+		$output .= '
+				<h1 class="entry-title">'.$page_heading.'</h1>
+				<p class="subheading">'.$page_sub_heading.'</p>';
+		$output .= '';
+	}
+	return $output;
+}
+
+add_action( 'add_meta_boxes', 'header_infobox_register_meta_boxes' );
+function header_infobox_register_meta_boxes(){
+	global $post;
+	$post_type = $post->post_type;
+	if( $post_type ==  'our-services'){
+		$pos = 'side';
+		$heading = 'Banner content and slider images';
+	}else{
+		$pos = 'normal';
+		$heading = 'Custom Fields';
+	}
+	add_meta_box( 'header-infobox', $heading,'header_infobox_meta_cb',array('page','post','our-services'),$pos);
+}
+function header_infobox_meta_cb($page){
+	$page_heading = get_post_meta( $page->ID ,'page_heading' ,true );
+	$page_sub_heading = get_post_meta( $page->ID ,'page_sub_heading' ,true );
+	$feature_image2 = get_post_meta( $page->ID ,'feature_image2' ,true );
+	if( $page->post_type == 'page' || $page->post_type == 'post' || $page->post_type == 'our-services'){
+		echo '<p>
+			<label>Heading</label>
+			<input type="text" name="page_heading" value="'.$page_heading.'">
+		</p>';
+	}
+	if( $page->post_type == 'page' || $page->post_type == 'post' || $page->post_type == 'our-services' ){
+		echo '<p>
+			<label>Sub Heading</label>
+			<textarea style="width: 100%;margin-top: 5px;height: 70px;" name="page_sub_heading">'.$page_sub_heading.'</textarea>
+		</p>';
+	}
+	if( $page->post_type == 'our-services' || $page->post_type == 'solutions' ){
+		echo '<p>
+			<label>Hover Image</label>
+			<div class="form-field1 doc-wrap featuredImg">
+					<input width="500" type="text" name="feature_image2" value="'.$feature_image2.'">
+					<span class="dashicons dashicons-upload upload_img_btn"></span>';
+			echo '<div class="innerImg">';
+			if( !empty($feature_image2) ){
+				echo '<img src="'.$feature_image2.'"/>';
+			}
+			echo '</div>';
+		echo '</div>';
+		echo '</p>';
+	}
+}
+add_action( 'save_post', 'save_page_metabox_cb' );
+function save_page_metabox_cb($page_id){
+	$page_heading = $_POST['page_heading'];
+	$page_sub_heading = $_POST['page_sub_heading'];
+	$feature_image2 = $_POST['feature_image2'];
+	$post_type = get_post_type( $page_id );
+	if( $post_type == 'page' || $post_type == 'post' || $post_type == 'our-services' ){
+		update_post_meta( $page_id ,'page_heading' , $page_heading );
+		update_post_meta( $page_id ,'page_sub_heading' , $page_sub_heading );
+		update_post_meta( $page_id ,'feature_image2' , $feature_image2 );
+	}
+}
+
+add_action( 'admin_footer', 'admin_footer_script' );
+function admin_footer_script(){
+	?>
+<style type="text/css">
+.featuredImg input[type="text"] {
+    width: 60%;
+}
+
+.featuredImg img {
+    width: 200px;
+    height: auto;
+}
+</style>
+<script type="text/javascript">
+jQuery('body').on("click", ".upload_img_btn", function(e) {
+    e.preventDefault();
+    var btnClicked = jQuery(this);
+    var custom_uploader = wp.media({
+            title: 'Select Image',
+            button: {
+                text: 'Upload Image'
+            },
+            multiple: false
+        })
+        .on('select', function() {
+            var selection = custom_uploader.state().get('selection');
+            selection.map(function(attachment) {
+                attachment = attachment.toJSON();
+                var current = btnClicked.closest('div.doc-wrap');
+                var element = btnClicked.closest('div.doc-wrap').find('input[type="text"]');
+                element.val(attachment.url);
+                if (jQuery('.innerImg').has('img').length) {
+                    jQuery('.innerImg img').attr('src', attachment.url);
+                } else {
+                    jQuery('.innerImg').html('<img src="' + attachment.url + '"/>');
+                }
+
+            });
+        })
+        .open();
+});
+</script>
+<?php
+}
+
+
 require get_template_directory() . '/include/constants.php';
 // require get_template_directory() . '/include/action-hooks.php';
 require get_template_directory() . '/include/admin-hooks.php';
