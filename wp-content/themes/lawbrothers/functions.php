@@ -142,11 +142,11 @@ function lawbrothers_scripts() {
 	wp_style_add_data( 'lawbrothers-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'lawbrothers-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'jquery', get_template_directory_uri() . '/assets/js/jquery-3.5.1.slim.min.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'magnific', get_template_directory_uri() . '/assets/js/jquery.magnific-popup.min.js', array(), '20151215', true );
-	wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/slick.min.js', array(), '20151215', true );
-	wp_enqueue_script( 'slick-animation', get_template_directory_uri() . '/assets/js/slick-animation.js', array(), '', true );
-	wp_enqueue_script('custom', get_template_directory_uri() . '/assets/js/custom.js', array(), '20151215', true );
+	wp_enqueue_script( 'jquery', get_template_directory_uri() . '/assets/js/jquery-3.5.1.slim.min.js', microtime() );
+	wp_enqueue_script( 'magnific', get_template_directory_uri() . '/assets/js/jquery.magnific-popup.min.js', microtime() );
+	wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/slick.min.js', microtime());
+	wp_enqueue_script( 'slick-animation', get_template_directory_uri() . '/assets/js/slick-animation.js', microtime());
+	wp_enqueue_script('custom', get_template_directory_uri() . '/assets/js/custom.js', microtime() );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -157,7 +157,7 @@ function lawbrothers_scripts() {
 	wp_enqueue_style('slick', get_template_directory_uri() . '/assets/css/slick.css', array(), '');
 	wp_enqueue_style('slick-theme', get_template_directory_uri() . '/assets/css/slick-theme.css', array(), '');
 	wp_enqueue_style('animated', get_template_directory_uri() . '/assets/css/animate.css', array(), '');
-	wp_enqueue_style('customstyle', get_template_directory_uri() . '/assets/css/custom.css', array(), '');
+	wp_enqueue_style('custom', get_template_directory_uri() . '/assets/css/custom.css', array(), microtime());
 	wp_enqueue_style('responsive', get_template_directory_uri() . '/assets/css/responsive.css', array(), '');
 }
 add_action( 'wp_enqueue_scripts', 'lawbrothers_scripts' );
@@ -289,16 +289,17 @@ add_action( 'add_meta_boxes', 'header_infobox_register_meta_boxes' );
 function header_infobox_register_meta_boxes(){
 	global $post;
 	$post_type = $post->post_type;
-	if( $post_type ==  'our-services'){
+	if( $post_type ==  'our-services' ){
 		$pos = 'side';
 		$heading = 'Banner content and slider images';
 	}else{
-		$pos = 'normal';
-		$heading = 'Custom Fields';
+		$pos = 'side';
+		$heading = 'Banner Fields';
 	}
 	add_meta_box( 'header-infobox', $heading,'header_infobox_meta_cb',array('page','post','our-services'),$pos);
 }
 function header_infobox_meta_cb($page){
+	wp_nonce_field('save_post', 'save_page_metabox_cb');
 	$page_heading = get_post_meta( $page->ID ,'page_heading' ,true );
 	$page_sub_heading = get_post_meta( $page->ID ,'page_sub_heading' ,true );
 	$feature_image2 = get_post_meta( $page->ID ,'feature_image2' ,true );
@@ -314,7 +315,7 @@ function header_infobox_meta_cb($page){
 			<textarea style="width: 100%;margin-top: 5px;height: 70px;" name="page_sub_heading">'.$page_sub_heading.'</textarea>
 		</p>';
 	}
-	if( $page->post_type == 'our-services' || $page->post_type == 'solutions' ){
+	if( $page->post_type == 'page' || $page->post_type == 'post' || $page->post_type == 'our-services' ){
 		echo '<p>
 			<label>Hover Image</label>
 			<div class="form-field1 doc-wrap featuredImg">
@@ -331,6 +332,18 @@ function header_infobox_meta_cb($page){
 }
 add_action( 'save_post', 'save_page_metabox_cb' );
 function save_page_metabox_cb($page_id){
+	if (!isset($_POST['save_page_metabox_cb'])) {
+        return $post_id;
+    }
+
+    $nonce = $_POST['save_page_metabox_cb'];
+    if (!wp_verify_nonce($nonce, 'save_post')) {
+        return $post_id;
+    }
+
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return $post_id;
+    }
 	$page_heading = $_POST['page_heading'];
 	$page_sub_heading = $_POST['page_sub_heading'];
 	$feature_image2 = $_POST['feature_image2'];
@@ -388,8 +401,9 @@ jQuery('body').on("click", ".upload_img_btn", function(e) {
 }
 
 
+
 require get_template_directory() . '/include/constants.php';
-// require get_template_directory() . '/include/action-hooks.php';
+require get_template_directory() . '/include/action-hooks.php';
 require get_template_directory() . '/include/admin-hooks.php';
 require get_template_directory() . '/include/cpt-register.php';
 require get_template_directory() . '/include/cpt-metabox.php';

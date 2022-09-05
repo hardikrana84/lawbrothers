@@ -76,7 +76,8 @@ class Create_Shortcodes{
 				$instagram_url = get_post_meta($post_id, 'instagram_url', true);
 				$linkedin_url = get_post_meta($post_id, 'linkedin_url', true);
 				$youtube_url = get_post_meta($post_id, 'youtube_url', true);
-				$desc  = wp_trim_words( get_the_excerpt(), 40, '...' );
+				//$desc  = wp_trim_words( get_the_excerpt(), 100, '...' );
+				$desc  = get_the_excerpt();
 				$editor = get_the_content();
 				$excerpt = get_the_excerpt();
 				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
@@ -84,15 +85,15 @@ class Create_Shortcodes{
 				// echo '<pre>';
 				// print_r( $postmeta1 );
 				// echo '</pre>';
-				// $image = get_the_post_thumbnail_url(get_the_ID(),'full');
+				$imageurl = get_the_post_thumbnail_url(get_the_ID(),'full');
 				$image = get_the_post_thumbnail(get_the_ID(), 'full');
-				$slider_output .= '<div class="card">
+				$slider_output .= '<div class="card" data-title="' . $title . '" data-designation="' . $designation . '" data-desc="' . $desc . '" data-image="' . $imageurl . '" >
 					<div class="card-img">
+						
 						<a href="' . $link . '">' .$image. '</a>
 					</div>
 					<div class="card-body">
 						<h5> '.$title.' <span>'.$designation.'</span></h5>
-						'.$excerpt_meta.'
 						<div class="profileinfo" style="display:none;">
 							<p><a href="mailto:' . $emailid . '"><span><i class="far fa-envelope"></i></span> : '.$emailid.'</a></p>
 							<p><a href="tel:'.$phonenumber.'"><span><i class="fas fa-phone-volume"></i></span> : '.$phonenumber.'</a></p>
@@ -106,6 +107,8 @@ class Create_Shortcodes{
 							<a href="'.$linkedin_url.'" target="_blank"><i class="fab fa-linkedin"></i></a>
 							<a href="'.$youtube_url.'" target="_blank"><i class="fab fa-youtube"></i></a>
 						</div>
+						<a class="myBtn" href="javascript:void;">Read More</a>
+						
 					</div>
 				</div>';
 			}
@@ -115,7 +118,7 @@ class Create_Shortcodes{
 	}
 
 	public function ourservices_shortcode($atts){
-		$atts = shortcode_atts( array('limit' => 8,),$atts);
+		$atts = shortcode_atts( array('limit' => -1,),$atts);
 		$limit = $atts['limit'];
 		$args = array(
 			'post_type'      => 'our-services',
@@ -143,7 +146,7 @@ class Create_Shortcodes{
 					<div class="card">
 					<div class="icon"><img src="'.$feature_image2.'" alt=""/> </div>
 					<div class="card-body">
-					<h3><a href="' . $link . '">'.$page_heading.'</a></h3>
+					<h3><a href="' . $link . '">'.$title.'</a></h3>
 					<p class="short-desc">'.$page_sub_heading.' </p>
 					<a href="' . $link . '" class="btn link">Read More</a>
 					</div>

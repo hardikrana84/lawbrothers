@@ -58,9 +58,9 @@ jQuery(document).ready(function ($) {
     dots: true,
     arrows: true,
     slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 2000,
     adaptiveHeight: true,
     responsive: [
       {
@@ -114,8 +114,8 @@ jQuery(document).ready(function ($) {
     arrows: false,
     slidesToShow: 3,
     slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 5000,
+    autoplay: true,
+    autoplaySpeed: 2000,
     adaptiveHeight: true,
     responsive: [
       {
@@ -257,4 +257,25 @@ jQuery(document).ready(function ($) {
   // 		}
   // 	}
   // });
+  jQuery(document).on('click', 'a.myBtn', function () {
+    var parent = jQuery(this).closest('div.card');
+    var title = parent.data('title');
+    var designation = parent.data('designation');
+    var desc = parent.data('desc');
+    var image = parent.data('image');
+    var pos = parent.data('pos');
+
+    jQuery('#memberimg').attr('src', image);
+    jQuery('#membertitle').html(title);
+    jQuery('#memberdesignation').html(designation);
+    jQuery('#memberdesc').html(desc);
+    jQuery('#governorpos').html(pos);
+    jQuery('#GurnaniModal').show();
+    setTimeout(function () {
+      jQuery('#GurnaniModal').addClass('in');
+    }, 50);
+  });
+  jQuery(document).on('click', '#GurnaniModal button', function () {
+    jQuery('#GurnaniModal').hide().removeClass('in');
+  });
 });

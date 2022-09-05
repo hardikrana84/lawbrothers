@@ -11,6 +11,7 @@ function meta_boxes_init() {
     add_meta_box('knowledge-hub', __('Publications Extra Fields', 'text-domain'), 'knowledge_hub_meta', array('knowledge-hub'), 'advanced', 'default');
 }
 
+
 function video_meta_box_callback() {
     global $post;
     wp_nonce_field('metafield_data', 'metafield_nonce');
@@ -92,6 +93,7 @@ function save_fields_all($post_id) {
         return $post_id;
     }
     $post_type = get_post_type($post_id);
+    
     if ($post_type == 'video') {
         update_post_meta($post_id, 'video_url', $_POST['video_url']);
         $videoId = parse_youtube_video_id_from_url($_POST['video_url']);

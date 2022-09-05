@@ -11,10 +11,9 @@ get_header();
 ?>
 
 <main id="primary" class="site-main">
-
     <div class="container">
         <div class="single-left">
-            <h2 class="entry-title"><?php the_title(); ?></h2>
+            <!-- <h2 class="entry-title"><?php the_title(); ?></h2> -->
             <?php
 				while ( have_posts() ) :
 					the_post();
