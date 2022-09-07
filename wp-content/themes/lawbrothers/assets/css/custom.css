@@ -163,6 +163,9 @@ input.wpcf7-submit:hover, input[type="submit"].es_submit_button:hover{color:var(
 .blog:not(.has-sidebar) #primary article, .archive:not(.page-one-column):not(.has-sidebar) #primary article, .search:not(.has-sidebar) #primary article, .error404:not(.has-sidebar) #primary .page-content, .error404.has-sidebar #primary .page-content, body.page-two-column:not(.archive) #primary .entry-content, body.page-two-column #comments{ width: 100%; float: none;}
 .page:not(.home) #content{ padding: 0px;}
 
+.page article .entry-header{ max-width: 1300px; margin: 0px auto;}
+.page article .entry-header .entry-title{font-size:3rem; font-weight:800; color:var(--blue); text-transform: uppercase; margin-bottom: 1rem;}
+
 .post, .page{margin:0px;}
 .entry-content{margin-top: 0px;}
 
@@ -288,7 +291,7 @@ a:hover.whatsup {padding:7px 18px 7px 45px; color: var(--white);}
 .home-blog .vc_grid-item .vc_gitem-zone-mini .vc_gitem-row-position-top:before{background-color: var(--blue); content: ""; display: inline-block; position: absolute; width: 110%; height: 80%; left:-5%; top: -40%; right: 0px; z-index: 1; transform: skew(-10deg, -10deg);}
 .home-blog .vc_grid-item .vc_gitem-zone-mini .vc_gitem-col{ padding: 2rem; padding-top: 0px; position: relative; z-index: 1;}
 .home-blog .vc_grid-item .vc_gitem-zone-mini .vc_gitem-col .vc_gitem-post-data{ color: var(--white);}
-.home-blog .vc_grid-item .vc_gitem-zone-mini .vc_gitem-col .vc_gitem-post-data-source-post_title h5{ color: var(--white); font-weight: 600;}
+.home-blog .vc_grid-item .vc_gitem-zone-mini .vc_gitem-col .vc_gitem-post-data-source-post_title h5{ color: var(--white); font-weight: 600; min-height: 70px;}
 .home-blog .vc_grid-item .vc_gitem-zone-mini .vc_gitem-col .vc_gitem-post-data-source-post_date { text-align: right; position: absolute; width: 100%; right: 0px; top: -50px;}
 .home-blog .vc_grid-item .vc_gitem-zone-mini .vc_gitem-col .vc_gitem-post-data-source-post_date p{ color: var(--black); background-color: var(--green); display: inline-block;}
 .home-blog .vc_grid-item .vc_gitem-zone-mini p{ font-size: 16px; color: var(--black); font-weight: 600; padding: 0.3rem 1.5rem 0.3rem 2.5rem; position: relative;}
@@ -300,13 +303,12 @@ a:hover.whatsup {padding:7px 18px 7px 45px; color: var(--white);}
 
 .slick-slider{ overflow: hidden;}
 .home .our-team { padding: 50px 0px; }
-.ourteamrow{ width: 1360px; margin: 0px auto;}
+.ourteamrow{ width: 1360px; margin: 0px auto; text-align: center;}
 .ourteamslider{ display: flex; flex-direction: column;}
 .ourteamrow .card{ background: var(--white); padding: 2rem; margin: 15px 15px; align-items: inherit; display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); position: relative; overflow: hidden;}
 .ourteamrow .card:before{background-color: var(--blue); content: ""; display: inline-block; position: absolute; width: 100%; height: 45%; left: 0%; top: -20%; z-index: 1;  transform: skew(0deg, 332deg);}
 .ourteamrow .card .card-img{ position: relative; z-index: 1; margin-bottom: 2rem;}
 .ourteamrow .card .card-img img{ width: 100%; display: block; object-fit: cover;}
-.ourteamrow .card .card-img img:hover{ background: var(--green); }
 .ourteamrow .card .card-body{ position: relative;}
 .ourteamrow .card .card-body h5 span{ font-weight: 500; display: block; color: var(--black); font-size: 1.4rem;}
 .ourteamrow .sociallinks{bottom: 0px; left:0px; right:0px; padding:0px 0px 25px 0px;}
@@ -346,7 +348,7 @@ a:hover.whatsup {padding:7px 18px 7px 45px; color: var(--white);}
 .home-services .slick-track{ display: flex; flex-direction:row;}
 .home-services .slick-track:before, .home-services .slick-track:after{ display: none;}
 .home-services{ display: flex; flex-wrap: wrap;}
-.home-services .card{ background-color: var(--white); margin: 1.5rem; padding: 2rem; max-width: calc(33.3333% - 3rem); flex-direction: column; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); text-align: left; align-items: flex-start;}
+.home-services .card{ background-color: var(--white); margin: 1.5rem; padding: 2rem; max-width: calc(25% - 3rem); flex-direction: column; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); text-align: left; align-items: flex-start;}
 .home-services .card:last-child{ margin-bottom: 1.5rem;}
 .home-services .card p{ font-weight: 500;}
 .home-services .card-body h3 a{font-size: 16px;  color: rgb(0, 0, 0);  font-weight: bold;  text-transform: uppercase;  text-align: left;}
@@ -358,8 +360,8 @@ a:hover.whatsup {padding:7px 18px 7px 45px; color: var(--white);}
 .home-publications h3{text-transform: unset; font-weight: 600;}
 .publicationrow .card{ background: var(--blue); padding: 2rem 1rem; margin: 15px 15px; align-items: inherit; display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0,0,0,0.3); position: relative; overflow: hidden; position: relative;}
 .publicationrow .card:before{ width: 150%; height: 100%; position: absolute; content: ""; background: var(--white); display: inline-block; left: 0px; top: 0px; border-radius: 75%; transform: translate(-50%, -50%); left: 50%;}
-.publicationrow h6{ position: relative; color: var(--black); min-height: 4rem;margin: 10px;}
-.publicationrow .card-img{display: flex; align-items: center; justify-content: center;/* height: 27rem; */overflow: hidden; position: relative;}
+.publicationrow h6{ position: relative; color: var(--black); min-height: 60px; margin: 10px;}
+.publicationrow .card-img{display: flex; align-items: center; justify-content: center; height: 26rem; overflow: hidden; position: relative;}
 .publicationrow .card-img a{ display: block;}
 .publicationrow .card-img img{ object-fit: cover; height: 100%; width: 70%; margin: 0 auto;}
 .publicationrow .card a.btn{ color: var(--green); border-color: var(--green);box-shadow: none; border-radius: unset;}
@@ -525,7 +527,7 @@ input[type="text"], input[type="email"], input[type="password"], textarea {width
   border: 2px solid #e6e6e6;  box-shadow: 2px 2px 5px rgb(0 0 0 / 5%);  border-radius: 0px;  color: var(--gray);}
 
 .form-row .form-group textarea {  height: 110px;  resize: none;}*/
-.ourteamrow .card .card-img:hover {  background: var(--green); z-index: 1; position: relative;}
+.ourteamrow .card .card-img:hover {  z-index: 1; position: relative;}
 
 
 .knowledgerow{ padding: 5rem 0rem; position: relative; display: flex; flex-wrap: wrap;}
@@ -556,8 +558,8 @@ input[type="text"], input[type="email"], input[type="password"], textarea {width
 .contactus h1 {color: var(--green);}
 .contactus h1:after{background-color: var(--green); width: 140px; height: 0.2rem;; content: ""; display: block;margin: 0 auto; margin-top: 15px;  }
 .contactus h5 {color: var(--green); border-bottom: 1px solid #7f7f7f ; padding-bottom: 15px;}
-.contactus p{color: var(--white50);}
-.contactus p strong{color: var(--white50); text-transform: unset;}
+.contactus p{color: var(--white50); font-size: 1.5rem; font-weight: 400;}
+.contactus p strong{color: var(--white50); text-transform: unset; font-weight:700;}
 
 /*Modal popup css*/
 .modal {display: none; overflow: auto; position: fixed; top:0%; right: 0; bottom: 0; left: 0; z-index: 99999; -webkit-overflow-scrolling: touch; outline: 0;}
@@ -589,11 +591,11 @@ input[type="text"], input[type="email"], input[type="password"], textarea {width
 
 div#memberdesc ul{ padding-top: 1.5rem; position: relative;}
 div#memberdesc ul li{ margin-bottom: 1rem; display: block; position: relative; padding-left:2rem;}
-div#memberdesc ul li:before{font-family: 'FontAwesome'; position: absolute; left: 0px; top: 1px; content: '\f101'; color: var(--blue);}
+div#memberdesc ul li:before{font-family: 'FontAwesome'; position: absolute; left: 0px; top: 1px;  content: '\f101'; color: var(--blue);}
 
 
 .modal-title span, .modal-title b {color: var(--green); font-weight: bold;}
-.myBtn { background: var(--green); color: var(--white); padding: 10px 30px;}
+.myBtn { background: var(--green); color: var(--white); padding: 10px 30px; display: block;}
 
 .newsletter{padding: 45px 0px 4px 0px; background: url(http://localhost/lawbrothers/wp-content/uploads/2022/09/newletter-bg.jpg); background-repeat: no-repeat;}
 .newsletter h2, .newsletter p {color: var(--white);padding: 0px; margin: 0px;}

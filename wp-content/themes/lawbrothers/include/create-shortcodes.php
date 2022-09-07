@@ -101,11 +101,13 @@ class Create_Shortcodes{
 						</div>
 						
 						<div class="sociallinks">
+						    <a href="'.$youtube_url.'" target="_blank"><i class="fab fa-youtube"></i></a>
 							<a href="'.$facebook_url.'" target="_blank"><i class="fab fa-facebook-f"></i></a>
+							<a href="'.$linkedin_url.'" target="_blank"><i class="fab fa-linkedin"></i></a>
 							<a href="'.$twitter_url.'" target="_blank"><i class="fab fa-twitter"></i></a>
 							<a href="'.$instagram_url.'" target="_blank"><i class="fab fa-instagram"></i></a>
-							<a href="'.$linkedin_url.'" target="_blank"><i class="fab fa-linkedin"></i></a>
-							<a href="'.$youtube_url.'" target="_blank"><i class="fab fa-youtube"></i></a>
+							
+							
 						</div>
 						<a class="myBtn" href="javascript:void;">Read More</a>
 						
@@ -118,7 +120,12 @@ class Create_Shortcodes{
 	}
 
 	public function ourservices_shortcode($atts){
-		$atts = shortcode_atts( array('limit' => -1,),$atts);
+		if (is_front_page()){
+			$atts = shortcode_atts( array('limit' => 8,),$atts);
+		}else{
+			$atts = shortcode_atts( array('limit' => -1,),$atts);
+		}
+
 		$limit = $atts['limit'];
 		$args = array(
 			'post_type'      => 'our-services',
