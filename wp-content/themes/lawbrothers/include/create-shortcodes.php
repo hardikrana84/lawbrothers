@@ -89,7 +89,6 @@ class Create_Shortcodes{
 				$image = get_the_post_thumbnail(get_the_ID(), 'full');
 				$slider_output .= '<div class="card" data-title="' . $title . '" data-designation="' . $designation . '" data-desc="' . $desc . '" data-image="' . $imageurl . '" >
 					<div class="card-img">
-						
 						<a href="' . $link . '">' .$image. '</a>
 					</div>
 					<div class="card-body">
@@ -106,11 +105,13 @@ class Create_Shortcodes{
 							<a href="'.$linkedin_url.'" target="_blank"><i class="fab fa-linkedin"></i></a>
 							<a href="'.$twitter_url.'" target="_blank"><i class="fab fa-twitter"></i></a>
 							<a href="'.$instagram_url.'" target="_blank"><i class="fab fa-instagram"></i></a>
-							
-							
 						</div>
-						<a class="myBtn" href="javascript:void;">Read More</a>
-						
+						<div class="cardinfo">
+						'.$desc.'
+						</div>
+						<!--  <a class="myBtn" href="javascript:void;">Read More</a> popup work -->
+						<a class="teambtn" href="' . $link . '">Read More</a>
+
 					</div>
 				</div>';
 			}

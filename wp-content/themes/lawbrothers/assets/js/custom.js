@@ -45,7 +45,7 @@ jQuery(document).ready(function ($) {
   jQuery('.mainslider').slick({
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     dots: true,
     arrows: true,
     customPaging: function (slider, i) {
@@ -59,7 +59,7 @@ jQuery(document).ready(function ($) {
     arrows: true,
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 2000,
     adaptiveHeight: true,
     responsive: [
@@ -257,6 +257,7 @@ jQuery(document).ready(function ($) {
   // 		}
   // 	}
   // });
+
   jQuery(document).on('click', 'a.myBtn', function () {
     var parent = jQuery(this).closest('div.card');
     var title = parent.data('title');
