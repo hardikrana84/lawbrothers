@@ -14,6 +14,7 @@ class Create_Shortcodes{
 		add_shortcode('knowledge-hub', array($this, 'knowledge_hub_shortcode'));
 		add_shortcode('knowledge-hub-categories-list', array($this, 'knowledge_hub_categories_list_shortcode'));
 		add_shortcode('clientslider', array($this, 'clientslider_shortcode'));
+		add_shortcode('alllocation', array($this, 'location_shortcode'));
 	}
 	public function homeslider_shortcode($atts){
 		$atts = shortcode_atts( array('limit' => 8,),$atts);
@@ -513,6 +514,42 @@ class Create_Shortcodes{
 				</div>';
 			}
 			$slider_output .= '</div>';
+		}
+		return $slider_output;
+	}
+
+	public function location_shortcode($atts){
+		$atts = shortcode_atts( array('limit' => -1,),$atts);
+		$limit = $atts['limit'];
+		$args = array(
+			'post_type'      => 'location',
+			'orderby' => 'menu_order',
+            'order' => 'ASC',
+			'posts_per_page' => $limit,
+			'post_status'    => 'publish'
+		);
+		$slider = new WP_Query($args);
+		$slider_output = '';
+		if( $slider->have_posts() ){
+			$slider_output .= '<div class="locationrow"><div class="container"><div class="grid">';
+			while ( $slider->have_posts() ) {
+				$slider->the_post();
+				$title = get_the_title();
+				$link = get_the_permalink();
+				$post_id = get_the_id();
+				$desc  = get_the_excerpt();
+				$editor = get_the_content();
+				$phonenumber = get_post_meta($post_id, 'phonenumber', true);
+				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
+				$date = get_the_date();
+				$slider_output .= '<div class="location-info grid__item"><h5><a href="javascript:void(0)">
+				'.$title.'</a></h5> <div>'.$editor.'</div></div>
+				
+				<div class="grid__description">
+					<div>'.$desc.'</div>
+				</div>';
+			}
+			$slider_output .= '</div></div></div>';
 		}
 		return $slider_output;
 	}

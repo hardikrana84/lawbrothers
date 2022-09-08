@@ -36,6 +36,7 @@
     </div>
 </footer> <!-- #colophon -->
 </div><!-- #page -->
+<a href="#toTop" id="backtotop" title="Back to top"><i class="fa fa-arrow-up"></i></a>
 <div class="whatsupapps">
     <a href="https://web.whatsapp.com/send?phone=919460724737&amp;text=Hi" data-action="open" data-phone="919460724737"
         target="_blank" class="whatsup webwhatapp"><span></span>Chat with us via<b>WhatsApp</b></a>

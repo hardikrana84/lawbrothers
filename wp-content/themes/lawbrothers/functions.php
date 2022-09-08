@@ -258,6 +258,7 @@ function get_breadcrumb() {
     } elseif (is_page()) {
         echo " <i class='las la-angle-right'></i> <span>";
         echo the_title();
+	   
 		echo " </span> ";
     } elseif (is_search()) {
         echo "&nbsp;&nbsp;&#187;&nbsp;&nbsp;Search Results for... ";

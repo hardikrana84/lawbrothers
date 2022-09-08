@@ -9,6 +9,7 @@ function meta_boxes_init() {
     add_meta_box('publications', __('Publications Extra Fields', 'text-domain'), 'home_publications', array('publications'), 'advanced', 'default');
     add_meta_box('media', __('Media Extra Fields', 'text-domain'), 'home_media', array('media'), 'advanced', 'default');
     add_meta_box('knowledge-hub', __('Publications Extra Fields', 'text-domain'), 'knowledge_hub_meta', array('knowledge-hub'), 'advanced', 'default');
+    add_meta_box('location', __('Extra Fields', 'text-domain'), 'location', array('location'), 'advanced', 'default');
 }
 
 
@@ -45,6 +46,15 @@ function ourteam_sociallinks() {
     echo '<tr><td>Youtube</td><td><input style="width: 70%"  id="youtube_url" name="youtube_url" type="text" value="' . $youtube_url . '"></td></tr>';
     echo '</tbody></table>';
 }
+
+function location() {
+    global $post;
+    wp_nonce_field('metafield_data', 'metafield_nonce');
+    $phonenumber = get_post_meta($post->ID, 'phonenumber', true);
+    echo '<table class="form-table"><tbody>';
+    echo '<tr><td>Phone</td><td><input style="width: 70%"  id="phonenumber" name="phonenumber" type="text" value="' . $phonenumber . '"></td></tr>';
+    echo '</tbody></table>';
+}    
 
 function home_publications() {
     global $post;
@@ -127,6 +137,9 @@ function save_fields_all($post_id) {
     }
     if ($post_type == 'knowledge-hub') {
         update_post_meta($post_id, 'pdf_url', $_POST['pdf_url']);
+    }
+    if ($post_type == 'location') {
+        update_post_meta($post_id, 'phonenumber', $_POST['phonenumber']);
     }
 }
 

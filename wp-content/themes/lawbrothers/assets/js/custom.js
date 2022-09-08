@@ -244,39 +244,46 @@ jQuery(document).ready(function ($) {
     });
   }
   $window.on('scroll resize', check_if_in_view);
-  // $window.trigger('scroll');
-  // $('a[href*="#"]:not([href="#"])').click(function () {
-  // 	if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-  // 		var target = $(this.hash);
-  // 		target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-  // 		if (target.length) {
-  // 			$('html, body').animate({
-  // 				scrollTop: target.offset().top - 150
-  // 			}, 1000);
-  // 			return false;
-  // 		}
-  // 	}
+  $window.trigger('scroll');
+  $('#backtotop').click(function () {
+    if (
+      location.pathname.replace(/^\//, '') ==
+        this.pathname.replace(/^\//, '') &&
+      location.hostname == this.hostname
+    ) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      if (target.length) {
+        $('html, body').animate(
+          {
+            scrollTop: target.offset().top - 150,
+          },
+          1000
+        );
+        return false;
+      }
+    }
+  });
+
+  // jQuery(document).on('click', 'a.myBtn', function () {
+  //   var parent = jQuery(this).closest('div.card');
+  //   var title = parent.data('title');
+  //   var designation = parent.data('designation');
+  //   var desc = parent.data('desc');
+  //   var image = parent.data('image');
+  //   var pos = parent.data('pos');
+
+  //   jQuery('#memberimg').attr('src', image);
+  //   jQuery('#membertitle').html(title);
+  //   jQuery('#memberdesignation').html(designation);
+  //   jQuery('#memberdesc').html(desc);
+  //   jQuery('#governorpos').html(pos);
+  //   jQuery('#GurnaniModal').show();
+  //   setTimeout(function () {
+  //     jQuery('#GurnaniModal').addClass('in');
+  //   }, 50);
   // });
-
-  jQuery(document).on('click', 'a.myBtn', function () {
-    var parent = jQuery(this).closest('div.card');
-    var title = parent.data('title');
-    var designation = parent.data('designation');
-    var desc = parent.data('desc');
-    var image = parent.data('image');
-    var pos = parent.data('pos');
-
-    jQuery('#memberimg').attr('src', image);
-    jQuery('#membertitle').html(title);
-    jQuery('#memberdesignation').html(designation);
-    jQuery('#memberdesc').html(desc);
-    jQuery('#governorpos').html(pos);
-    jQuery('#GurnaniModal').show();
-    setTimeout(function () {
-      jQuery('#GurnaniModal').addClass('in');
-    }, 50);
-  });
-  jQuery(document).on('click', '#GurnaniModal button', function () {
-    jQuery('#GurnaniModal').hide().removeClass('in');
-  });
+  // jQuery(document).on('click', '#GurnaniModal button', function () {
+  //   jQuery('#GurnaniModal').hide().removeClass('in');
+  // });
 });
