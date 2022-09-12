@@ -4,6 +4,7 @@ add_action('save_post', 'save_fields_all');
 add_action('admin_footer', 'media_fields');
 
 function meta_boxes_init() {
+    // add_meta_box('banner_meta', __('Banner Fields', 'text-domain'), 'banner_meta_box', array('page','post','our-services'), 'advanced', 'default');
     add_meta_box('video_meta', __('Extra Fields', 'text-domain'), 'video_meta_box_callback', array('video'), 'advanced', 'default');
     add_meta_box('our-team', __('Extra Fields', 'text-domain'), 'ourteam_sociallinks', array('our-team'), 'advanced', 'default');
     add_meta_box('publications', __('Publications Extra Fields', 'text-domain'), 'home_publications', array('publications'), 'advanced', 'default');
@@ -12,6 +13,31 @@ function meta_boxes_init() {
     add_meta_box('location', __('Extra Fields', 'text-domain'), 'location', array('location'), 'advanced', 'default');
 }
 
+
+// function banner_meta_box() {
+//     global $post;
+//     wp_nonce_field('metafield_data', 'metafield_nonce');
+//     $page_heading = get_post_meta($post->ID, 'page_heading', true);
+//     $page_sub_heading = get_post_meta($post->ID, 'page_sub_heading', true);
+//     $feature_image2 = get_post_meta($post->ID, 'feature_image2', true);
+
+
+//     echo '<table class="form-table"><tbody>';
+//     echo '<tr><td>Title</td><td><input style="width: 70%"  id="page_heading" name="page_heading" type="text" value="' . $page_heading . '"></td></tr>';
+//     echo '<tr><td>Sub Title</td><td><input style="width: 70%"  id="page_sub_heading" name="page_sub_heading" type="text" value="' . $page_sub_heading . '"></td></tr>';
+//     echo '<tr><td>Image</td><td><p>
+//     <div class="form-field1 doc-wrap featuredImg">
+//             <input width="500" type="text" name="feature_image2" value="'.$feature_image2.'">
+//             <span class="dashicons dashicons-upload upload_img_btn"></span>';
+//     echo '<div class="innerImg">';
+//     if( !empty($feature_image2) ){
+//         echo '<img src="'.$feature_image2.'" style="width:auto; max-width:200px;"/>';
+//     }
+//     echo '</div>';
+//     echo '</div>';
+//     echo '</p></td></tr>';
+//     echo '</tbody></table>';
+// }
 
 function video_meta_box_callback() {
     global $post;
@@ -29,6 +55,7 @@ function ourteam_sociallinks() {
     wp_nonce_field('metafield_data', 'metafield_nonce');
     $designation = get_post_meta($post->ID, 'designation', true);
     $emailid = get_post_meta($post->ID, 'emailid', true);
+    $memberlocation = get_post_meta($post->ID, 'memberlocation', true);
     $phonenumber = get_post_meta($post->ID, 'phonenumber', true);
     $facebook_url = get_post_meta($post->ID, 'facebook_url', true);
     $twitter_url = get_post_meta($post->ID, 'twitter_url', true);
@@ -38,6 +65,7 @@ function ourteam_sociallinks() {
     echo '<table class="form-table"><tbody>';
     echo '<tr><td>Designation</td><td><input style="width: 70%"  id="designation" name="designation" type="text" value="' . $designation . '"></td></tr>';
     echo '<tr><td>Email ID</td><td><input style="width: 70%"  id="emailid" name="emailid" type="text" value="' . $emailid . '"></td></tr>';
+    echo '<tr><td>Location</td><td><input style="width: 70%"  id="memberlocation" name="memberlocation" type="text" value="' . $memberlocation . '"></td></tr>';
     echo '<tr><td>Phone</td><td><input style="width: 70%"  id="phonenumber" name="phonenumber" type="text" value="' . $phonenumber . '"></td></tr>';
     echo '<tr><td>Facebook</td><td><input style="width: 70%"  id="facebook_url" name="facebook_url" type="text" value="' . $facebook_url . '"></td></tr>';
     echo '<tr><td>Twitter</td><td><input style="width: 70%" id="twitter_url" name="twitter_url" type="text" value="' . $twitter_url . '"></td></tr>';
@@ -103,7 +131,12 @@ function save_fields_all($post_id) {
         return $post_id;
     }
     $post_type = get_post_type($post_id);
-    
+	// if( $post_type == 'page' || $post_type == 'post' || $post_type == 'our-services' ){
+	// 	update_post_meta( $page_id ,'page_heading' , $page_heading );
+	// 	update_post_meta( $page_id ,'page_sub_heading' , $page_sub_heading );
+	// 	update_post_meta( $page_id ,'feature_image2' , $feature_image2 );
+	// }
+
     if ($post_type == 'video') {
         update_post_meta($post_id, 'video_url', $_POST['video_url']);
         $videoId = parse_youtube_video_id_from_url($_POST['video_url']);
@@ -120,6 +153,7 @@ function save_fields_all($post_id) {
     if ($post_type == 'our-team') {
         update_post_meta($post_id, 'designation', $_POST['designation']);
         update_post_meta($post_id, 'emailid', $_POST['emailid']);
+        update_post_meta($post_id, 'memberlocation', $_POST['memberlocation']);
         update_post_meta($post_id, 'phonenumber', $_POST['phonenumber']);
         update_post_meta($post_id, 'facebook_url', $_POST['facebook_url']);
         update_post_meta($post_id, 'twitter_url', $_POST['twitter_url']);

@@ -51,7 +51,12 @@ class Create_Shortcodes{
 	}
 
 	public function ourteam_shortcode($atts){
-		$atts = shortcode_atts( array('limit' => 8,),$atts);
+		if (is_front_page()){
+			$atts = shortcode_atts( array('limit' => 8,),$atts);
+		}else{
+			$atts = shortcode_atts( array('limit' => -1,),$atts);
+		}
+		$atts = shortcode_atts( array('limit' => -1,),$atts);
 		$limit = $atts['limit'];
 		$args = array(
 			'post_type'      => 'our-team',
@@ -63,7 +68,11 @@ class Create_Shortcodes{
 		$slider = new WP_Query($args);
 		$slider_output = '';
 		if( $slider->have_posts() ){
-			$slider_output .= '<div class="ourteamrow"><div class="ourteamslider">';
+			if (is_page('our-team')){
+				$slider_output .= '<div class="ourteamrow"><div class="ourteamwithoutslider">';
+			}else{
+				$slider_output .= '<div class="ourteamrow"><div class="ourteamslider">';
+			}
 			while ( $slider->have_posts() ) {
 				$slider->the_post();
 				$title = get_the_title();
@@ -71,6 +80,7 @@ class Create_Shortcodes{
 				$post_id = get_the_id();
 				$designation = get_post_meta($post_id, 'designation', true);
 				$emailid = get_post_meta($post_id, 'emailid', true);
+				$memberlocation = get_post_meta($post_id, 'memberlocation', true);
 				$phonenumber = get_post_meta($post_id, 'phonenumber', true);
 				$facebook_url = get_post_meta($post_id, 'facebook_url', true);
 				$twitter_url = get_post_meta($post_id, 'twitter_url', true);
@@ -88,7 +98,8 @@ class Create_Shortcodes{
 				// echo '</pre>';
 				$imageurl = get_the_post_thumbnail_url(get_the_ID(),'full');
 				$image = get_the_post_thumbnail(get_the_ID(), 'full');
-				$slider_output .= '<div class="card" data-title="' . $title . '" data-designation="' . $designation . '" data-desc="' . $desc . '" data-image="' . $imageurl . '" >
+				// $slider_output .= '<div class="card" data-title="' . $title . '" data-designation="' . $designation . '" data-desc="' . $desc . '" data-image="' . $imageurl . '" >
+				$slider_output .= '<div class="card">
 					<div class="card-img">
 						<a href="' . $link . '">' .$image. '</a>
 					</div>

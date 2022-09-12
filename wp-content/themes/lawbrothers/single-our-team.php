@@ -11,11 +11,31 @@ get_header();
 ?>
 <main id="primary" class="site-main">
     <div class="container no-sidebar">
+        <header class="entry-header">
+            <?php
+		if ( is_singular() ) :
+			the_title( '<h2 class="entry-title">', '</h2>' );
+		else :
+			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+		endif;
+
+		if ( 'post' === get_post_type() ) :
+			?>
+            <div class="entry-meta">
+                <?php
+				lawbrothers_posted_on();
+				lawbrothers_posted_by();
+				?>
+            </div><!-- .entry-meta -->
+            <?php endif; ?>
+
+        </header><!-- .entry-header -->
+
         <?php
 		while ( have_posts() ) :
 			the_post();
-
-			get_template_part( 'template-parts/content', get_post_type() );
+			
+			get_template_part( 'template-parts/content-our-team', get_post_type() );
 			the_post_navigation(
 				array(
 					'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous', 'hr-theme' ) . '</span> <span class="nav-title">%title</span>',

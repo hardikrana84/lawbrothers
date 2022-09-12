@@ -290,17 +290,16 @@ add_action( 'add_meta_boxes', 'header_infobox_register_meta_boxes' );
 function header_infobox_register_meta_boxes(){
 	global $post;
 	$post_type = $post->post_type;
-	if( $post_type ==  'our-services' ){
+	if( $post_type ==  'our-services'){
 		$pos = 'side';
 		$heading = 'Banner content and slider images';
 	}else{
 		$pos = 'side';
-		$heading = 'Banner Fields';
+		$heading = 'Custom Fields';
 	}
 	add_meta_box( 'header-infobox', $heading,'header_infobox_meta_cb',array('page','post','our-services'),$pos);
 }
 function header_infobox_meta_cb($page){
-	wp_nonce_field('save_post', 'save_page_metabox_cb');
 	$page_heading = get_post_meta( $page->ID ,'page_heading' ,true );
 	$page_sub_heading = get_post_meta( $page->ID ,'page_sub_heading' ,true );
 	$feature_image2 = get_post_meta( $page->ID ,'feature_image2' ,true );
@@ -316,7 +315,7 @@ function header_infobox_meta_cb($page){
 			<textarea style="width: 100%;margin-top: 5px;height: 70px;" name="page_sub_heading">'.$page_sub_heading.'</textarea>
 		</p>';
 	}
-	if( $page->post_type == 'page' || $page->post_type == 'post' || $page->post_type == 'our-services' ){
+	if( $page->post_type == 'our-services' || $page->post_type == 'solutions' ){
 		echo '<p>
 			<label>Hover Image</label>
 			<div class="form-field1 doc-wrap featuredImg">
@@ -333,18 +332,6 @@ function header_infobox_meta_cb($page){
 }
 add_action( 'save_post', 'save_page_metabox_cb' );
 function save_page_metabox_cb($page_id){
-	if (!isset($_POST['save_page_metabox_cb'])) {
-        return $post_id;
-    }
-
-    $nonce = $_POST['save_page_metabox_cb'];
-    if (!wp_verify_nonce($nonce, 'save_post')) {
-        return $post_id;
-    }
-
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-        return $post_id;
-    }
 	$page_heading = $_POST['page_heading'];
 	$page_sub_heading = $_POST['page_sub_heading'];
 	$feature_image2 = $_POST['feature_image2'];

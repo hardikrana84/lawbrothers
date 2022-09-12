@@ -45,7 +45,8 @@ jQuery(document).ready(function ($) {
   jQuery('.mainslider').slick({
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
+    autoplaySpeed: 2000,
     dots: true,
     arrows: true,
     customPaging: function (slider, i) {
@@ -59,7 +60,7 @@ jQuery(document).ready(function ($) {
     arrows: true,
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 2000,
     adaptiveHeight: true,
     responsive: [

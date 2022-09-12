@@ -154,7 +154,7 @@ class Cpt_Register{
 			'description' => __( 'Our Services Custom Post type', 'text_domain' ),
 			'labels' => $labels,
 			'menu_icon' => 'dashicons-megaphone',
-			'supports' => array('title', 'excerpt', 'thumbnail', 'editor', 'page-attributes' ),
+			'supports' => array('title', 'thumbnail', 'editor', 'page-attributes' ),
 			'public' => true,
 			'show_ui' => true,
 			'show_in_menu' => true,
