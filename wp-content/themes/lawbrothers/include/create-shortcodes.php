@@ -14,6 +14,7 @@ class Create_Shortcodes{
 		add_shortcode('knowledge-hub', array($this, 'knowledge_hub_shortcode'));
 		add_shortcode('knowledge-hub-categories-list', array($this, 'knowledge_hub_categories_list_shortcode'));
 		add_shortcode('clientslider', array($this, 'clientslider_shortcode'));
+		add_shortcode('alllocation', array($this, 'location_shortcode'));
 	}
 	public function homeslider_shortcode($atts){
 		$atts = shortcode_atts( array('limit' => 8,),$atts);
@@ -50,7 +51,12 @@ class Create_Shortcodes{
 	}
 
 	public function ourteam_shortcode($atts){
-		$atts = shortcode_atts( array('limit' => 8,),$atts);
+		if (is_front_page()){
+			$atts = shortcode_atts( array('limit' => 8,),$atts);
+		}else{
+			$atts = shortcode_atts( array('limit' => -1,),$atts);
+		}
+		$atts = shortcode_atts( array('limit' => -1,),$atts);
 		$limit = $atts['limit'];
 		$args = array(
 			'post_type'      => 'our-team',
@@ -62,7 +68,11 @@ class Create_Shortcodes{
 		$slider = new WP_Query($args);
 		$slider_output = '';
 		if( $slider->have_posts() ){
-			$slider_output .= '<div class="ourteamrow"><div class="ourteamslider">';
+			if (is_page('our-team')){
+				$slider_output .= '<div class="ourteamrow"><div class="ourteamwithoutslider">';
+			}else{
+				$slider_output .= '<div class="ourteamrow"><div class="ourteamslider">';
+			}
 			while ( $slider->have_posts() ) {
 				$slider->the_post();
 				$title = get_the_title();
@@ -70,13 +80,15 @@ class Create_Shortcodes{
 				$post_id = get_the_id();
 				$designation = get_post_meta($post_id, 'designation', true);
 				$emailid = get_post_meta($post_id, 'emailid', true);
+				$memberlocation = get_post_meta($post_id, 'memberlocation', true);
 				$phonenumber = get_post_meta($post_id, 'phonenumber', true);
 				$facebook_url = get_post_meta($post_id, 'facebook_url', true);
 				$twitter_url = get_post_meta($post_id, 'twitter_url', true);
 				$instagram_url = get_post_meta($post_id, 'instagram_url', true);
 				$linkedin_url = get_post_meta($post_id, 'linkedin_url', true);
 				$youtube_url = get_post_meta($post_id, 'youtube_url', true);
-				$desc  = wp_trim_words( get_the_excerpt(), 40, '...' );
+				//$desc  = wp_trim_words( get_the_excerpt(), 100, '...' );
+				$desc  = get_the_excerpt();
 				$editor = get_the_content();
 				$excerpt = get_the_excerpt();
 				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
@@ -84,15 +96,15 @@ class Create_Shortcodes{
 				// echo '<pre>';
 				// print_r( $postmeta1 );
 				// echo '</pre>';
-				// $image = get_the_post_thumbnail_url(get_the_ID(),'full');
+				$imageurl = get_the_post_thumbnail_url(get_the_ID(),'full');
 				$image = get_the_post_thumbnail(get_the_ID(), 'full');
+				// $slider_output .= '<div class="card" data-title="' . $title . '" data-designation="' . $designation . '" data-desc="' . $desc . '" data-image="' . $imageurl . '" >
 				$slider_output .= '<div class="card">
 					<div class="card-img">
 						<a href="' . $link . '">' .$image. '</a>
 					</div>
 					<div class="card-body">
 						<h5> '.$title.' <span>'.$designation.'</span></h5>
-						'.$excerpt_meta.'
 						<div class="profileinfo" style="display:none;">
 							<p><a href="mailto:' . $emailid . '"><span><i class="far fa-envelope"></i></span> : '.$emailid.'</a></p>
 							<p><a href="tel:'.$phonenumber.'"><span><i class="fas fa-phone-volume"></i></span> : '.$phonenumber.'</a></p>
@@ -100,12 +112,18 @@ class Create_Shortcodes{
 						</div>
 						
 						<div class="sociallinks">
+						    <a href="'.$youtube_url.'" target="_blank"><i class="fab fa-youtube"></i></a>
 							<a href="'.$facebook_url.'" target="_blank"><i class="fab fa-facebook-f"></i></a>
+							<a href="'.$linkedin_url.'" target="_blank"><i class="fab fa-linkedin"></i></a>
 							<a href="'.$twitter_url.'" target="_blank"><i class="fab fa-twitter"></i></a>
 							<a href="'.$instagram_url.'" target="_blank"><i class="fab fa-instagram"></i></a>
-							<a href="'.$linkedin_url.'" target="_blank"><i class="fab fa-linkedin"></i></a>
-							<a href="'.$youtube_url.'" target="_blank"><i class="fab fa-youtube"></i></a>
 						</div>
+						<div class="cardinfo">
+						'.$desc.'
+						</div>
+						<!--  <a class="myBtn" href="javascript:void;">Read More</a> popup work -->
+						<a class="teambtn" href="' . $link . '">Read More</a>
+
 					</div>
 				</div>';
 			}
@@ -115,7 +133,12 @@ class Create_Shortcodes{
 	}
 
 	public function ourservices_shortcode($atts){
-		$atts = shortcode_atts( array('limit' => 8,),$atts);
+		if (is_front_page()){
+			$atts = shortcode_atts( array('limit' => 8,),$atts);
+		}else{
+			$atts = shortcode_atts( array('limit' => -1,),$atts);
+		}
+
 		$limit = $atts['limit'];
 		$args = array(
 			'post_type'      => 'our-services',
@@ -143,7 +166,7 @@ class Create_Shortcodes{
 					<div class="card">
 					<div class="icon"><img src="'.$feature_image2.'" alt=""/> </div>
 					<div class="card-body">
-					<h3><a href="' . $link . '">'.$page_heading.'</a></h3>
+					<h3><a href="' . $link . '">'.$title.'</a></h3>
 					<p class="short-desc">'.$page_sub_heading.' </p>
 					<a href="' . $link . '" class="btn link">Read More</a>
 					</div>
@@ -500,6 +523,42 @@ class Create_Shortcodes{
 				$slider_output .= '<div class="partnerblock">
 					<img src="'.$image.'" alt=""/>
 				</div>';
+			}
+			$slider_output .= '</div>';
+		}
+		return $slider_output;
+	}
+
+	public function location_shortcode($atts){
+		$atts = shortcode_atts( array('limit' => -1,),$atts);
+		$limit = $atts['limit'];
+		$args = array(
+			'post_type'      => 'location',
+			'orderby' => 'menu_order',
+            'order' => 'ASC',
+			'posts_per_page' => $limit,
+			'post_status'    => 'publish'
+		);
+		$slider = new WP_Query($args);
+		$slider_output = '';
+		if( $slider->have_posts() ){
+			$slider_output .= '<div class="locationrow">';
+			while ( $slider->have_posts() ) {
+				$slider->the_post();
+				$title = get_the_title();
+				$link = get_the_permalink();
+				$post_id = get_the_id();
+				$desc  = get_the_excerpt();
+				$editor = get_the_content();
+				$phonenumber = get_post_meta($post_id, 'phonenumber', true);
+				$direction = get_post_meta($post_id, 'direction', true);;
+				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
+				$date = get_the_date();
+				$slider_output .= '<div class="location-info">
+										<h5>'.$title.'</h5> 
+										<p>'.$editor.'</p>
+										<a href="'.$direction.'" target="_blank"><i class="fa fa-map-marker" aria-hidden="true"> </i> Get Direction </a>
+								    </div>';
 			}
 			$slider_output .= '</div>';
 		}

@@ -46,8 +46,9 @@ jQuery(document).ready(function ($) {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
+    autoplaySpeed: 2000,
     dots: true,
-    arrows: true,
+    arrows: false,
     customPaging: function (slider, i) {
       var title = $(slider.$slides[i]).data('title');
       return '<a class="title"> ' + title + ' </a>';
@@ -58,9 +59,9 @@ jQuery(document).ready(function ($) {
     dots: true,
     arrows: true,
     slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 2000,
     adaptiveHeight: true,
     responsive: [
       {
@@ -111,11 +112,11 @@ jQuery(document).ready(function ($) {
 
   $('.publication-slider').slick({
     dots: true,
-    arrows: false,
+    arrows: true,
     slidesToShow: 3,
     slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 5000,
+    autoplay: true,
+    autoplaySpeed: 2000,
     adaptiveHeight: true,
     responsive: [
       {
@@ -147,7 +148,7 @@ jQuery(document).ready(function ($) {
   });
   $('.media-slider').slick({
     dots: true,
-    arrows: false,
+    arrows: true,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
@@ -244,17 +245,46 @@ jQuery(document).ready(function ($) {
     });
   }
   $window.on('scroll resize', check_if_in_view);
-  // $window.trigger('scroll');
-  // $('a[href*="#"]:not([href="#"])').click(function () {
-  // 	if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-  // 		var target = $(this.hash);
-  // 		target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-  // 		if (target.length) {
-  // 			$('html, body').animate({
-  // 				scrollTop: target.offset().top - 150
-  // 			}, 1000);
-  // 			return false;
-  // 		}
-  // 	}
+  $window.trigger('scroll');
+  $('#backtotop').click(function () {
+    if (
+      location.pathname.replace(/^\//, '') ==
+        this.pathname.replace(/^\//, '') &&
+      location.hostname == this.hostname
+    ) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      if (target.length) {
+        $('html, body').animate(
+          {
+            scrollTop: target.offset().top - 150,
+          },
+          1000
+        );
+        return false;
+      }
+    }
+  });
+
+  // jQuery(document).on('click', 'a.myBtn', function () {
+  //   var parent = jQuery(this).closest('div.card');
+  //   var title = parent.data('title');
+  //   var designation = parent.data('designation');
+  //   var desc = parent.data('desc');
+  //   var image = parent.data('image');
+  //   var pos = parent.data('pos');
+
+  //   jQuery('#memberimg').attr('src', image);
+  //   jQuery('#membertitle').html(title);
+  //   jQuery('#memberdesignation').html(designation);
+  //   jQuery('#memberdesc').html(desc);
+  //   jQuery('#governorpos').html(pos);
+  //   jQuery('#GurnaniModal').show();
+  //   setTimeout(function () {
+  //     jQuery('#GurnaniModal').addClass('in');
+  //   }, 50);
+  // });
+  // jQuery(document).on('click', '#GurnaniModal button', function () {
+  //   jQuery('#GurnaniModal').hide().removeClass('in');
   // });
 });

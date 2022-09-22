@@ -35,7 +35,7 @@
     <?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> id="toTop">
     <?php wp_body_open(); ?>
     <div id="page" class="site">
         <a class="skip-link screen-reader-text"
@@ -69,7 +69,7 @@
             </div>
         </header><!-- #masthead -->
 
-        <?php if ( ! is_front_page() ) : ?>
+        <?php if ( ! is_front_page() && ! is_single() ) : ?>
         <div class="subbanner">
             <figure>
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/banner1-1.jpg" alt="" title="">
@@ -77,6 +77,24 @@
             <div class="bannerinfo">
                 <div class="container">
                     <?php echo do_shortcode('[header-infobox]');?>
+                </div>
+            </div>
+        </div>
+        <div class="breadcrumb">
+            <div class="container">
+                <?php get_breadcrumb(); ?>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <?php if ( is_single() ) : ?>
+        <div class="subbanner">
+            <figure>
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/banner1-1.jpg" alt="" title="">
+            </figure>
+            <div class="bannerinfo">
+                <div class="container">
+                    <h1 class="entry-title"><?php the_title() ?></h1>
                 </div>
             </div>
         </div>
