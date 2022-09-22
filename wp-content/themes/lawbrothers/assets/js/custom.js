@@ -48,7 +48,7 @@ jQuery(document).ready(function ($) {
     autoplay: true,
     autoplaySpeed: 2000,
     dots: true,
-    arrows: true,
+    arrows: false,
     customPaging: function (slider, i) {
       var title = $(slider.$slides[i]).data('title');
       return '<a class="title"> ' + title + ' </a>';
@@ -112,7 +112,7 @@ jQuery(document).ready(function ($) {
 
   $('.publication-slider').slick({
     dots: true,
-    arrows: false,
+    arrows: true,
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
@@ -148,7 +148,7 @@ jQuery(document).ready(function ($) {
   });
   $('.media-slider').slick({
     dots: true,
-    arrows: false,
+    arrows: true,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,

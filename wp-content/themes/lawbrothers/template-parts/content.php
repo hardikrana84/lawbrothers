@@ -29,8 +29,7 @@
         </div><!-- .entry-meta -->
         <?php endif; ?>
     </header><!-- .entry-header -->
-
-    <?php // lawbrothers_post_thumbnail(); ?>
+    <?php lawbrothers_post_thumbnail(); ?>
 
     <div class="entry-content">
         <?php

@@ -542,7 +542,7 @@ class Create_Shortcodes{
 		$slider = new WP_Query($args);
 		$slider_output = '';
 		if( $slider->have_posts() ){
-			$slider_output .= '<div class="locationrow"><div class="container"><div class="grid">';
+			$slider_output .= '<div class="locationrow">';
 			while ( $slider->have_posts() ) {
 				$slider->the_post();
 				$title = get_the_title();
@@ -551,16 +551,16 @@ class Create_Shortcodes{
 				$desc  = get_the_excerpt();
 				$editor = get_the_content();
 				$phonenumber = get_post_meta($post_id, 'phonenumber', true);
+				$direction = get_post_meta($post_id, 'direction', true);;
 				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
 				$date = get_the_date();
-				$slider_output .= '<div class="location-info grid__item"><h5><a href="javascript:void(0)">
-				'.$title.'</a></h5> <div>'.$editor.'</div></div>
-				
-				<div class="grid__description">
-					<div>'.$desc.'</div>
-				</div>';
+				$slider_output .= '<div class="location-info">
+										<h5>'.$title.'</h5> 
+										<p>'.$editor.'</p>
+										<a href="'.$direction.'" target="_blank"><i class="fa fa-map-marker" aria-hidden="true"> </i> Get Direction </a>
+								    </div>';
 			}
-			$slider_output .= '</div></div></div>';
+			$slider_output .= '</div>';
 		}
 		return $slider_output;
 	}

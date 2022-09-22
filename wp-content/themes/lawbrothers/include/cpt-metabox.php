@@ -81,6 +81,7 @@ function location() {
     $phonenumber = get_post_meta($post->ID, 'phonenumber', true);
     echo '<table class="form-table"><tbody>';
     echo '<tr><td>Phone</td><td><input style="width: 70%"  id="phonenumber" name="phonenumber" type="text" value="' . $phonenumber . '"></td></tr>';
+    echo '<tr><td>Direction</td><td><input style="width: 70%"  id="direction" name="direction" type="text" value="' . $direction . '"></td></tr>';
     echo '</tbody></table>';
 }    
 
@@ -174,6 +175,7 @@ function save_fields_all($post_id) {
     }
     if ($post_type == 'location') {
         update_post_meta($post_id, 'phonenumber', $_POST['phonenumber']);
+        update_post_meta($post_id, 'direction', $_POST['direction']);
     }
 }
 
