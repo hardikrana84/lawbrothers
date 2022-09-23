@@ -8,6 +8,7 @@ function meta_boxes_init() {
     add_meta_box('video_meta', __('Extra Fields', 'text-domain'), 'video_meta_box_callback', array('video'), 'advanced', 'default');
     add_meta_box('our-team', __('Extra Fields', 'text-domain'), 'ourteam_sociallinks', array('our-team'), 'advanced', 'default');
     add_meta_box('publications', __('Publications Extra Fields', 'text-domain'), 'home_publications', array('publications'), 'advanced', 'default');
+    add_meta_box('events', __('Event Fields', 'text-domain'), 'events_metabox_cb', array('events'), 'advanced', 'default');
     add_meta_box('media', __('Media Extra Fields', 'text-domain'), 'home_media', array('media'), 'advanced', 'default');
     add_meta_box('knowledge-hub', __('Publications Extra Fields', 'text-domain'), 'knowledge_hub_meta', array('knowledge-hub'), 'advanced', 'default');
     add_meta_box('location', __('Extra Fields', 'text-domain'), 'location', array('location'), 'advanced', 'default');
@@ -88,9 +89,13 @@ function location() {
 function home_publications() {
     global $post;
     wp_nonce_field('metafield_data', 'metafield_nonce');
+    $pdf = get_post_meta($post->ID, 'pdf', true);
     $publication_url = get_post_meta($post->ID, 'publication_url', true);
+    $flipkart = get_post_meta($post->ID, 'flipkart', true);
     echo '<table class="form-table"><tbody>';
-    echo '<tr><td>Publication URL</td><td><input style="width: 70%"  id="publication_url" name="publication_url" type="text" value="' . $publication_url . '"></td></tr>';
+    echo '<tr><td>PDF</td><td><input style="width: 70%"  id="pdf" name="pdf" type="text" value="' . $pdf . '"></td></tr>';
+    echo '<tr><td>Amazon</td><td><input style="width: 70%"  id="amazon" name="publication_url" type="text" value="' . $publication_url . '"></td></tr>';
+    echo '<tr><td>Flipkart</td><td><input style="width: 70%"  id="flipkart" name="flipkart" type="text" value="' . $flipkart . '"></td></tr>';
     echo '</tbody></table>';
 }
 
@@ -100,6 +105,24 @@ function home_media() {
     $media_url = get_post_meta($post->ID, 'media_url', true);
     echo '<table class="form-table"><tbody>';
     echo '<tr><td>Media URL</td><td><input style="width: 70%"  id="media_url" name="media_url" type="text" value="' . $media_url . '"></td></tr>';
+    echo '</tbody></table>';
+}
+
+function events_metabox_cb() {
+    global $post;
+    wp_nonce_field('metafield_data', 'metafield_nonce');
+    $event_location = get_post_meta($post->ID, 'event_location', true);
+    $event_datetime = get_post_meta($post->ID, 'event_datetime', true);
+    $event_edatetime = get_post_meta($post->ID, 'event_edatetime', true);
+    $cover_photo = get_post_meta($post->ID, 'cover_photo', true);
+    $cover_preview = !empty($cover_photo) ? "<img src='$cover_photo'>" : '';
+    $event_datetime = (!empty($event_datetime) ? date('Y-m-d h:i A', $event_datetime) : '');
+    $event_edatetime = (!empty($event_edatetime) ? date('Y-m-d h:i A', $event_edatetime) : '');
+    echo '<table class="form-table"><tbody>';
+    echo '<tr><td>Cover Photo</td><td><input style="width: 70%" id="cover_photo" name="cover_photo" type="text" value="' . $cover_photo . '"> <input style="width: 19%" class="button media" id="cover_photo_button" name="cover_photo_button" type="button" value="Upload" /><div class="cover_preview">' . $cover_preview . '</div></td></tr>';
+    echo '<tr><td>Event location</td><td><input id="event_location" name="event_location" type="text" value="' . $event_location . '"></td></tr>';
+    echo '<tr><td>Start date</td><td><input id="event_datetime" name="event_datetime" value="' . $event_datetime . '" type="text"></td></tr>';
+    echo '<tr><td>End date</td><td><input id="event_edatetime" name="event_edatetime" value="' . $event_edatetime . '" type="text"></td></tr>';
     echo '</tbody></table>';
 }
 
@@ -164,7 +187,19 @@ function save_fields_all($post_id) {
     }
 
     if ($post_type == 'publications') {
+        update_post_meta($post_id, 'pdf', $_POST['pdf']);
         update_post_meta($post_id, 'publication_url', $_POST['publication_url']);
+        update_post_meta($post_id, 'flipkart', $_POST['flipkart']);
+    }
+
+    if ($post_type == 'events') {
+        $event_datetime = strtotime($_POST['event_datetime']);
+        $event_edatetime = strtotime($_POST['event_edatetime']);
+        update_post_meta($post_id, 'event_location', $_POST['event_location']);
+        update_post_meta($post_id, 'event_datetime', $event_datetime);
+        update_post_meta($post_id, 'event_edatetime', $event_edatetime);
+        update_post_meta($post_id, 'club_selection', $_POST['club_selection']);
+        update_post_meta($post_id, 'cover_photo', $_POST['cover_photo']);
     }
 
     if ($post_type == 'media') {
