@@ -113,7 +113,7 @@ jQuery(document).ready(function ($) {
   $('.publication-slider').slick({
     dots: true,
     arrows: true,
-    slidesToShow: 3,
+    slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,

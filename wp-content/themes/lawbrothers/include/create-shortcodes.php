@@ -9,12 +9,13 @@ class Create_Shortcodes{
 		add_shortcode('home-media', array($this, 'home_media_shortcode'));
 		add_shortcode('featuredvideo', array($this, 'featuredvideo_shortcode'));
 		add_shortcode('video-categories-list', array($this, 'video_categories_list_shortcode'));
-		add_shortcode('articles', array($this, 'article_shortcode'));
-		add_shortcode('articles-categories-list', array($this, 'article_categories_list_shortcode'));
+		add_shortcode('queryoftheday', array($this, 'queryoftheday_shortcode'));
+		add_shortcode('queryoftheday-categories-list', array($this, 'queryoftheday_categories_list_shortcode'));
 		add_shortcode('knowledge-hub', array($this, 'knowledge_hub_shortcode'));
 		add_shortcode('knowledge-hub-categories-list', array($this, 'knowledge_hub_categories_list_shortcode'));
 		add_shortcode('clientslider', array($this, 'clientslider_shortcode'));
 		add_shortcode('alllocation', array($this, 'location_shortcode'));
+		add_shortcode('event-list', array($this, 'event_list_shortcode'));
 	}
 	public function homeslider_shortcode($atts){
 		$atts = shortcode_atts( array('limit' => 8,),$atts);
@@ -178,7 +179,7 @@ class Create_Shortcodes{
 	}
 
 	public function home_publications_shortcode($atts){
-		$atts = shortcode_atts( array('limit' => 8,),$atts);
+		$atts = shortcode_atts( array('limit' => -1,),$atts);
 		$limit = $atts['limit'];
 		$args = array(
 			'post_type'      => 'publications',
@@ -196,21 +197,25 @@ class Create_Shortcodes{
 				$title = get_the_title();
 				$link = get_the_permalink();
 				$post_id = get_the_id();
-				$publication_url = get_post_meta($post_id, 'publication_url', true);
 				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
 				$date = get_the_date();
+				$pdf = get_post_meta($post->ID, 'pdf', true);
+				$publication_url = get_post_meta($post->ID, 'publication_url', true);
+				$flipkart = get_post_meta($post->ID, 'flipkart', true);
 				// echo '<pre>';
 				// print_r( $postmeta1 );
 				// echo '</pre>';
 				// $image = get_the_post_thumbnail_url(get_the_ID(),'full');
 				$image = get_the_post_thumbnail(get_the_ID(), 'full');
-				$slider_output .= '<div class="card">
+				$slider_output .= '<div class="card text-center">
 					<h6>'. $title .'</h6>
 					<div class="card-img">
-						<a href="' . $publication_url . '">' .$image. '</a>
+						' .$image. '
 					</div>
 					<div class="card-body">
-						<a href="' . $publication_url . '" class="btn knowmore">Know More</a>
+						<a href="' . $pdf . '" class="btn knowmore"  target="_blank">PDF</a>
+						<a href="' . $publication_url . '" class="btn knowmore"  target="_blank">Amazon</a>
+						<a href="' . $flipkart . '" class="btn knowmore"  target="_blank">Flipkart</a>
 					</div>
 				</div>';
 			}
@@ -350,11 +355,11 @@ class Create_Shortcodes{
         return $output;
     }
 
-	public function article_shortcode($atts){
+	public function queryoftheday_shortcode($atts){
 		$atts = shortcode_atts( array('limit' => -1,),$atts);
 		$limit = $atts['limit'];
 		$args = array(
-			'post_type'      => 'article',
+			'post_type'      => 'queryoftheday',
 			'orderby' => 'menu_order',
             'order' => 'ASC',
 			'posts_per_page' => $limit,
@@ -499,6 +504,8 @@ class Create_Shortcodes{
         return $output;
     }
 
+	
+
 
 	public function clientslider_shortcode($atts){
 		$atts = shortcode_atts( array('limit' => -1,),$atts);
@@ -564,4 +571,152 @@ class Create_Shortcodes{
 		}
 		return $slider_output;
 	}
+
+	public function event_list_shortcode($atts) {
+        $today = strtotime(date('Y-m-d h:i A'));
+        $atts = shortcode_atts(array('limit' => 8, 'type' => 'all', 'slider' => 'true', 'sidebar' => 'true', 'pagination' => false), $atts);
+        $limit = $atts['limit'];
+        $type = $atts['type'];
+        $pagination = $atts['pagination'];
+        $slider = $atts['slider'];
+        $sidebar = $atts['sidebar'];
+        $query_args['post_type'] = 'events';
+        $query_args['posts_per_page'] = $limit;
+        $query_args['post_status'] = 'publish';
+        if ($sidebar == 'false') {
+            $query_args['post__not_in'] = array(get_the_ID());
+        }
+        if ($type == 'past') {
+            $query_args['meta_query'][] = array(
+                'relation' => 'AND',
+                array(
+                    'key' => 'event_datetime',
+                    'value' => $today,
+                    'compare' => '<',
+                    'type' => 'NUMERIC',
+                ),
+                array(
+                    'key' => 'event_edatetime',
+                    'value' => $today,
+                    'compare' => '<',
+                    'type' => 'NUMERIC',
+                )
+            );
+        }
+        if ($type == 'upcoming') {
+            $query_args['meta_key'] = 'event_datetime';
+            $query_args['orderby'] = 'meta_value_num';
+            $query_args['order'] = 'ASC';
+            $query_args['meta_query'][] = array(
+                'relation' => 'OR',
+                array(
+                    'key' => 'event_datetime',
+                    'value' => $today,
+                    'compare' => '>',
+                    'type' => 'NUMERIC',
+                ),
+                array(
+                    'key' => 'event_edatetime',
+                    'value' => $today,
+                    'compare' => '>',
+                    'type' => 'NUMERIC',
+                )
+            );
+        }
+        $query_args['meta_query'][] = array(
+            'relation' => 'OR',
+            array(
+                'key' => 'user_visibility',
+                'compare' => 'NOT EXISTS',
+                'value' => '',
+            ),
+            array(
+                'key' => 'user_visibility',
+                'value' => 'public',
+            )
+        );
+        if ($pagination) {
+            $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+            $query_args['paged'] = $paged;
+        }
+        $event = new WP_Query($query_args);
+        $total_pages = $event->max_num_pages;
+        $event_output = '';
+        if ($slider == 'true') {
+            if ($event->have_posts()) {
+                $event_output .= '<div class="slick-slider event-list event-list-new">';
+                while ($event->have_posts()) {
+                    $event->the_post();
+                    $id = get_the_ID();
+                    $title = get_the_title();
+                    $desc = wp_trim_words(get_the_excerpt(), 15, '...');
+                    $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
+                    $link = get_the_permalink();
+                    $image = (!empty($image) ? $image : TEMPDIR . '/images/no-cover-img.png');
+                    $event_datetime = get_post_meta($id, 'event_datetime', true);
+                    $event_edatetime = get_post_meta($id, 'event_edatetime', true);
+                    $event_date = (!empty($event_datetime) ? date('M j, Y', $event_datetime) : '');
+                    $event_edate = (!empty($event_edatetime) ? date('M j, Y', $event_edatetime) : '');
+
+                    $event_output .= '<div class="slick-item slick-item"><div class="event-img"><a href="' . $link . '"><img src="' . $image . '" alt="' . $title . '"/></a></div><div class="slider-description" data-animation-in="fadeIn">
+                            <a href="' . $link . '"><h3>' . $title . ' </h3></a>
+                            <p class="date">' . __('', 'iimnagpur') . $event_date;
+                    if (!empty($event_edate) && $event_edate != $event_date) {
+                        $event_output .= ' to ' . $event_edate;
+                    }
+                    $event_output .= '</p>
+                            <p>' . $desc . '</p>
+                        </div>
+                    </div>';
+                }
+                $event_output .= '</div>';
+            }
+        } else {
+            if ($event->have_posts()) {
+                $event_output .= '<div class="event-wrap event-class-' . $type . '"><div class="event-page-fix">';
+                while ($event->have_posts()) {
+                    $event->the_post();
+                    $id = get_the_ID();
+                    $title = get_the_title();
+                    $desc = wp_trim_words(get_the_excerpt(), 24, '...');
+                    $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
+                    $link = get_the_permalink();
+                    $image = (!empty($image) ? $image : TEMPDIR . '/images/no-cover-img.png');
+                    $event_location = get_post_meta($id, 'event_location', true);
+                    $event_datetime = get_post_meta($id, 'event_datetime', true);
+                    $event_edatetime = get_post_meta($id, 'event_edatetime', true);
+                    $event_date = (!empty($event_datetime) ? date('M j, Y', $event_datetime) : '');
+                    $event_edate = (!empty($event_edatetime) ? date('M j, Y', $event_edatetime) : '');
+                    $event_time = (!empty($event_datetime) ? date('h:i A', $event_datetime) : '');
+                    $event_etime = (!empty($event_edatetime) ? date('h:i A', $event_edatetime) : '');
+
+                    $event_output .= '<div class="event-page-loop"><div class="event-col">';
+                    if ($sidebar == 'true') {
+                        $event_output .= '<div class="event-img"><a href="' . $link . '"><img src="' . $image . '" alt="' . $title . '"/></a></div>';
+                    }
+                    $event_output .= '<h3><a href="' . $link . '">' . $title . ' </a></h3>
+                    <div class="event_metainfo">';
+                    $event_output .= '<p class="date">' . __('', 'iimnagpur') . $event_date;
+                    if (!empty($event_edate) && $event_edate != $event_date) {
+                        $event_output .= ' to ' . $event_edate;
+                    }
+                    $event_output .= '</p>';
+                    $event_output .= '<p class="location">' . __('', 'iimnagpur') . $event_location . '</p>
+                    </div>
+                        <p class="event-text">' . $desc . '</p>
+                        <a class="readmore" href="' . $link . '">' . __('Read More', 'iimnagpur') . '</a>
+                    </div></div>';
+                }
+
+                $event_output .= '</div>';
+                if ($pagination) {
+                    $event_output .= '<ul class="pagination">';
+                    $event_output .= wp_pagination($event, $total_pages);
+                    $event_output .= '</ul>';
+                }
+                $event_output .= '</div>';
+            }
+        }
+        return $event_output;
+    }
 }
