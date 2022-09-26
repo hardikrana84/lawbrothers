@@ -559,7 +559,7 @@ class Cpt_Register{
 			'can_export' => true,
 			'has_archive' => true,
 			// 'rewrite' => array('slug' => 'about-gca/associated-districts'),
-			'hierarchical' => true,
+			'hierarchical' => false,
 			'exclude_from_search' => false,
 			'show_in_rest' => true,
 			'publicly_queryable' => true,
