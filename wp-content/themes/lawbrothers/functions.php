@@ -388,6 +388,16 @@ jQuery('body').on("click", ".upload_img_btn", function(e) {
 <?php
 }
 
+add_filter( 'parse_query', 'sorting_archives' );
+
+function sorting_archives( $wp_query ) {
+	if (is_post_type_archive( ) || is_tax()) {
+	$wp_query->set( 'orderby', 'menu_order' );
+	$wp_query->set( 'order', 'ASC' );
+	}
+	return $wp_query;
+}
+
 
 
 

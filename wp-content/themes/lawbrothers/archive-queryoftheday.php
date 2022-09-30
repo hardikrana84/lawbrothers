@@ -13,9 +13,8 @@ get_header();
 <main id="primary" class="site-main">
     <div class="container">
         <?php if ( have_posts() ) : ?>
-        <div class="publicationrow">
-            <div class="publication-list">
-                <?php
+        <div class="queryrow">
+            <?php
 			/* Start the Loop */
 			while ( have_posts() ) :
             the_post(); 
@@ -26,19 +25,15 @@ get_header();
             $excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
             $date = get_the_date();
             $image = get_the_post_thumbnail(get_the_ID(), 'full');
+            $editor = get_the_content();
             
             ?>
-                <div class="card text-center">
-                    <h6><?php echo $title ?></h6>
-                    <div class="card-img">
-                        <a href="<?php echo $publication_url ?>" target="_blank"><?php echo $image ?> </a>
-                    </div>
-                    <div class="card-body">
-                        <a href="<?php echo $publication_url ?>" class="btn knowmore" target="_blank">Know More</a>
-                    </div>
-                </div>
-                <?php endwhile; endif; ?>
+
+            <div class="card">
+                <div class="question"><?php echo $title ?></div>
+                <div class="answer"><?php echo $editor ?></div>
             </div>
+            <?php endwhile; endif; ?>
             <?php the_posts_navigation(); ?>
         </div>
     </div>

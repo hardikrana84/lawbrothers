@@ -10,8 +10,9 @@ function meta_boxes_init() {
     add_meta_box('publications', __('Publications Extra Fields', 'text-domain'), 'home_publications', array('publications'), 'advanced', 'default');
     add_meta_box('events', __('Event Fields', 'text-domain'), 'events_metabox_cb', array('events'), 'advanced', 'default');
     add_meta_box('media', __('Media Extra Fields', 'text-domain'), 'home_media', array('media'), 'advanced', 'default');
-    add_meta_box('knowledge-hub', __('Publications Extra Fields', 'text-domain'), 'knowledge_hub_meta', array('knowledge-hub'), 'advanced', 'default');
+    add_meta_box('knowledge-hub', __('knowledge Extra Fields', 'text-domain'), 'knowledge_hub_meta', array('knowledge-hub'), 'advanced', 'default');
     add_meta_box('location', __('Extra Fields', 'text-domain'), 'location', array('location'), 'advanced', 'default');
+    add_meta_box('clients', __('Extra Fields', 'text-domain'), 'client_meta', array('clients'), 'advanced', 'default');
 }
 
 
@@ -76,15 +77,7 @@ function ourteam_sociallinks() {
     echo '</tbody></table>';
 }
 
-function location() {
-    global $post;
-    wp_nonce_field('metafield_data', 'metafield_nonce');
-    $phonenumber = get_post_meta($post->ID, 'phonenumber', true);
-    echo '<table class="form-table"><tbody>';
-    echo '<tr><td>Phone</td><td><input style="width: 70%"  id="phonenumber" name="phonenumber" type="text" value="' . $phonenumber . '"></td></tr>';
-    echo '<tr><td>Direction</td><td><input style="width: 70%"  id="direction" name="direction" type="text" value="' . $direction . '"></td></tr>';
-    echo '</tbody></table>';
-}    
+ 
 
 function home_publications() {
     global $post;
@@ -94,19 +87,12 @@ function home_publications() {
     $flipkart = get_post_meta($post->ID, 'flipkart', true);
     echo '<table class="form-table"><tbody>';
     echo '<tr><td>PDF</td><td><input style="width: 70%"  id="pdf" name="pdf" type="text" value="' . $pdf . '"></td></tr>';
-    echo '<tr><td>Amazon</td><td><input style="width: 70%"  id="amazon" name="publication_url" type="text" value="' . $publication_url . '"></td></tr>';
+    echo '<tr><td>Amazon</td><td><input style="width: 70%"  id="publication_url" name="publication_url" type="text" value="' . $publication_url . '"></td></tr>';
     echo '<tr><td>Flipkart</td><td><input style="width: 70%"  id="flipkart" name="flipkart" type="text" value="' . $flipkart . '"></td></tr>';
     echo '</tbody></table>';
 }
 
-function home_media() {
-    global $post;
-    wp_nonce_field('metafield_data', 'metafield_nonce');
-    $media_url = get_post_meta($post->ID, 'media_url', true);
-    echo '<table class="form-table"><tbody>';
-    echo '<tr><td>Media URL</td><td><input style="width: 70%"  id="media_url" name="media_url" type="text" value="' . $media_url . '"></td></tr>';
-    echo '</tbody></table>';
-}
+
 
 function events_metabox_cb() {
     global $post;
@@ -126,6 +112,15 @@ function events_metabox_cb() {
     echo '</tbody></table>';
 }
 
+function home_media() {
+    global $post;
+    wp_nonce_field('metafield_data', 'metafield_nonce');
+    $media_url = get_post_meta($post->ID, 'media_url', true);
+    echo '<table class="form-table"><tbody>';
+    echo '<tr><td>Media URL</td><td><input style="width: 70%"  id="media_url" name="media_url" type="text" value="' . $media_url . '"></td></tr>';
+    echo '</tbody></table>';
+}
+
 function knowledge_hub_meta() {
     global $post;
     wp_nonce_field('metafield_data', 'metafield_nonce');
@@ -139,6 +134,25 @@ function knowledge_hub_meta() {
     echo '</tbody></table>';
 
 }
+
+function client_meta() {
+    global $post;
+    wp_nonce_field('metafield_data', 'metafield_nonce');
+    $clienturl = get_post_meta($post->ID, 'clienturl', true);
+    echo '<table class="form-table"><tbody>';
+    echo '<tr><td>Client Url</td><td><input style="width: 70%"  id="clienturl" name="clienturl" type="text" value="' . $clienturl . '"></td></tr>';
+    echo '</tbody></table>';
+}
+
+function location() {
+    global $post;
+    wp_nonce_field('metafield_data', 'metafield_nonce');
+    $phonenumber = get_post_meta($post->ID, 'phonenumber', true);
+    echo '<table class="form-table"><tbody>';
+    echo '<tr><td>Phone</td><td><input style="width: 70%"  id="phonenumber" name="phonenumber" type="text" value="' . $phonenumber . '"></td></tr>';
+    echo '<tr><td>Direction</td><td><input style="width: 70%"  id="direction" name="direction" type="text" value="' . $direction . '"></td></tr>';
+    echo '</tbody></table>';
+}   
 
 function save_fields_all($post_id) {
 	
@@ -211,6 +225,10 @@ function save_fields_all($post_id) {
     if ($post_type == 'location') {
         update_post_meta($post_id, 'phonenumber', $_POST['phonenumber']);
         update_post_meta($post_id, 'direction', $_POST['direction']);
+    }
+    if ($post_type == 'clients') {
+        update_post_meta($post_id, 'clienturl', $_POST['clienturl']);
+        
     }
 }
 

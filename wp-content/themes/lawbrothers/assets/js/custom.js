@@ -60,7 +60,7 @@ jQuery(document).ready(function ($) {
     arrows: true,
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 2000,
     adaptiveHeight: true,
     responsive: [
@@ -110,12 +110,21 @@ jQuery(document).ready(function ($) {
     });
   }
 
+  $('.query-slider').slick({
+    dots: true,
+    arrows: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 2000,
+  });
+
   $('.publication-slider').slick({
     dots: true,
     arrows: true,
     slidesToShow: 2,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 2000,
     adaptiveHeight: true,
     responsive: [
@@ -287,4 +296,15 @@ jQuery(document).ready(function ($) {
   // jQuery(document).on('click', '#GurnaniModal button', function () {
   //   jQuery('#GurnaniModal').hide().removeClass('in');
   // });
+
+  jQuery('.close-search').click(function () {
+    jQuery('.custom-search-form .search-form').animate({
+      width: 0,
+    });
+  });
+  jQuery('.header-search-icon').click(function () {
+    jQuery('.custom-search-form .search-form').animate({
+      width: 330,
+    });
+  });
 });
