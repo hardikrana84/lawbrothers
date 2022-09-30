@@ -10,7 +10,6 @@ class Create_Shortcodes{
 		add_shortcode('featuredvideo', array($this, 'featuredvideo_shortcode'));
 		add_shortcode('video-categories-list', array($this, 'video_categories_list_shortcode'));
 		add_shortcode('queryoftheday', array($this, 'queryoftheday_shortcode'));
-		add_shortcode('queryoftheday-categories-list', array($this, 'queryoftheday_categories_list_shortcode'));
 		add_shortcode('knowledge-hub', array($this, 'knowledge_hub_shortcode'));
 		add_shortcode('knowledge-hub-categories-list', array($this, 'knowledge_hub_categories_list_shortcode'));
 		add_shortcode('clientslider', array($this, 'clientslider_shortcode'));
@@ -78,16 +77,15 @@ class Create_Shortcodes{
 				$slider->the_post();
 				$title = get_the_title();
 				$link = get_the_permalink();
-				$post_id = get_the_id();
-				$designation = get_post_meta($post_id, 'designation', true);
-				$emailid = get_post_meta($post_id, 'emailid', true);
-				$memberlocation = get_post_meta($post_id, 'memberlocation', true);
-				$phonenumber = get_post_meta($post_id, 'phonenumber', true);
-				$facebook_url = get_post_meta($post_id, 'facebook_url', true);
-				$twitter_url = get_post_meta($post_id, 'twitter_url', true);
-				$instagram_url = get_post_meta($post_id, 'instagram_url', true);
-				$linkedin_url = get_post_meta($post_id, 'linkedin_url', true);
-				$youtube_url = get_post_meta($post_id, 'youtube_url', true);
+				$designation = get_post_meta(get_the_ID(), 'designation', true);
+				$emailid = get_post_meta(get_the_ID(), 'emailid', true);
+				$memberlocation = get_post_meta(get_the_ID(), 'memberlocation', true);
+				$phonenumber = get_post_meta(get_the_ID(), 'phonenumber', true);
+				$facebook_url = get_post_meta(get_the_ID(), 'facebook_url', true);
+				$twitter_url = get_post_meta(get_the_ID(), 'twitter_url', true);
+				$instagram_url = get_post_meta(get_the_ID(), 'instagram_url', true);
+				$linkedin_url = get_post_meta(get_the_ID(), 'linkedin_url', true);
+				$youtube_url = get_post_meta(get_the_ID(), 'youtube_url', true);
 				//$desc  = wp_trim_words( get_the_excerpt(), 100, '...' );
 				$desc  = get_the_excerpt();
 				$editor = get_the_content();
@@ -190,38 +188,40 @@ class Create_Shortcodes{
 		);
 		$slider = new WP_Query($args);
 		$slider_output = '';
+		
 		if( $slider->have_posts() ){
 			$slider_output .= '<div class="publicationrow"><div class="publication-slider">';
 			while ( $slider->have_posts() ) {
 				$slider->the_post();
 				$title = get_the_title();
 				$link = get_the_permalink();
-				$post_id = get_the_id();
-				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
+				$excerpt = get_the_excerpt();
 				$date = get_the_date();
-				$pdf = get_post_meta($post->ID, 'pdf', true);
-				$publication_url = get_post_meta($post->ID, 'publication_url', true);
-				$flipkart = get_post_meta($post->ID, 'flipkart', true);
+				$pdf = get_post_meta(get_the_ID(), 'pdf', true);
+				$publication_url = get_post_meta(get_the_ID(), 'publication_url', true);
+				$flipkart = get_post_meta(get_the_ID(), 'flipkart', true);
 				// echo '<pre>';
-				// print_r( $postmeta1 );
+				// print_r( $slider->have_posts() );
 				// echo '</pre>';
 				// $image = get_the_post_thumbnail_url(get_the_ID(),'full');
 				$image = get_the_post_thumbnail(get_the_ID(), 'full');
-				$slider_output .= '<div class="card text-center">
+				$slider_output .= ' <div class="card text-center">
 					<h6>'. $title .'</h6>
 					<div class="card-img">
 						' .$image. '
 					</div>
 					<div class="card-body">
-						<a href="' . $pdf . '" class="btn knowmore"  target="_blank">PDF</a>
-						<a href="' . $publication_url . '" class="btn knowmore"  target="_blank">Amazon</a>
-						<a href="' . $flipkart . '" class="btn knowmore"  target="_blank">Flipkart</a>
+						<a href="' .$pdf. '" class="btn knowmore" target="_blank">PDF</a>
+						<a href="' .$publication_url. '" class="btn knowmore" target="_blank">Amazon</a>
+						<a href="' .$flipkart. '" class="btn knowmore" target="_blank">Others</a>
 					</div>
 				</div>';
 			}
 			$slider_output .= '</div></div>';
+
 		}
 		return $slider_output;
+		
 	}
 
 	public function home_media_shortcode($atts){
@@ -243,7 +243,7 @@ class Create_Shortcodes{
 				$title = get_the_title();
 				$link = get_the_permalink();
 				$post_id = get_the_id();
-				$media_url = get_post_meta($post_id, 'media_url', true);
+				$media_url = get_post_meta(get_the_ID(), 'media_url', true);
 				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
 				$date = get_the_date();
 				// echo '<pre>';
@@ -332,8 +332,8 @@ class Create_Shortcodes{
 				$link = get_the_permalink();
                 $desc = get_the_content();
                 $excerpt = get_the_excerpt();
-                //$youtubeMeta = get_post_meta($post_id, 'youtube', true);
-                $youtubeUrl = get_post_meta($post_id, 'video_url', true);
+                //$youtubeMeta = get_post_meta(get_the_ID(), 'youtube', true);
+                $youtubeUrl = get_post_meta(get_the_ID(), 'video_url', true);
                 $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
                 if (!$image) {
                     $image = get_template_directory_uri() . '/images/image-notavailable.jpg';
@@ -368,22 +368,21 @@ class Create_Shortcodes{
 		$slider = new WP_Query($args);
 		$slider_output = '';
 		if( $slider->have_posts() ){
-			$slider_output .= '<div class=""><ul>';
+			$slider_output .= '<div class="queryrow"><div class="query-slider">';
 			while ( $slider->have_posts() ) {
 				$slider->the_post();
 				$title = get_the_title();
 				$link = get_the_permalink();
 				$editor = get_the_content();
-				$excerpt = get_the_excerpt();
-				$date = get_the_date();
 				// echo '<pre>';
 				// print_r( $postmeta1 );
 				// echo '</pre>';
-				// $image = get_the_post_thumbnail_url(get_the_ID(),'full');
-				$image = get_the_post_thumbnail(get_the_ID(), 'full');
-				$slider_output .= '<li><a href="' . $link . '">'.$title.'</a></li>';
+				$slider_output .= '<div class="card">
+										<div class="question"><sapn>Q: </sapn> '.$title.'</div>
+										<div class="answer"><sapn>A: </sapn> '.$editor. '</div>
+									</div>';
 			}
-			$slider_output .= '</ul></div>';
+			$slider_output .= '</div></div>';
 		}
 		return $slider_output;
 	}
@@ -443,8 +442,7 @@ class Create_Shortcodes{
 				$slider->the_post();
 				$title = get_the_title();
 				$link = get_the_permalink();
-				$post_id = get_the_id();
-				$pdf_url = get_post_meta($post_id, 'pdf_url', true);
+				$pdf_url = get_post_meta(get_the_ID(), 'pdf_url', true);
 				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
 				$date = get_the_date();
 				// echo '<pre>';
@@ -505,8 +503,6 @@ class Create_Shortcodes{
     }
 
 	
-
-
 	public function clientslider_shortcode($atts){
 		$atts = shortcode_atts( array('limit' => -1,),$atts);
 		$limit = $atts['limit'];
@@ -519,22 +515,29 @@ class Create_Shortcodes{
 		);
 		$slider = new WP_Query($args);
 		$slider_output = '';
+		
 		if( $slider->have_posts() ){
-			$slider_output .= '
-			<div class="client-slider">';
+			$slider_output .= '<div class="client-slider">';
 			while ( $slider->have_posts() ) {
 				$slider->the_post();
 				$title = get_the_title();
-				//$desc  = wp_trim_words( get_the_content(), 40, '...' );
+				$link = get_the_permalink();
+				$clienturl = get_post_meta(get_the_ID(), 'clienturl', true);
+				// echo '<pre>';
+				// print_r( $slider->have_posts() );
+				// echo '</pre>';
 				$image = get_the_post_thumbnail_url(get_the_ID(),'full');
-				$slider_output .= '<div class="partnerblock">
-					<img src="'.$image.'" alt=""/>
-				</div>';
+				$slider_output .= ' <div class="partnerblock">
+										<a href="' .$clienturl. '" target="_blank"><img src="'.$image.'" alt=""/></a>
+									</div>';
 			}
 			$slider_output .= '</div>';
+
 		}
 		return $slider_output;
+		
 	}
+
 
 	public function location_shortcode($atts){
 		$atts = shortcode_atts( array('limit' => -1,),$atts);
@@ -557,8 +560,8 @@ class Create_Shortcodes{
 				$post_id = get_the_id();
 				$desc  = get_the_excerpt();
 				$editor = get_the_content();
-				$phonenumber = get_post_meta($post_id, 'phonenumber', true);
-				$direction = get_post_meta($post_id, 'direction', true);;
+				$phonenumber = get_post_meta(get_the_ID(), 'phonenumber', true);
+				$direction = get_post_meta(get_the_ID(), 'direction', true);;
 				$excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
 				$date = get_the_date();
 				$slider_output .= '<div class="location-info">

@@ -10,6 +10,7 @@
 get_header();
 ?>
 
+
 <main id="primary" class="site-main">
     <div class="container">
         <?php if ( have_posts() ) : ?>
@@ -17,6 +18,7 @@ get_header();
             <div class="publication-list">
                 <?php
 			/* Start the Loop */
+
 			while ( have_posts() ) :
             the_post(); 
             $title = get_the_title();
@@ -25,9 +27,9 @@ get_header();
             $excerpt_meta= !empty($excerpt)? "<p>$excerpt</p>":'';
             $date = get_the_date();
             $image = get_the_post_thumbnail(get_the_ID(), 'full');
-            $pdf = get_post_meta($post->ID, 'pdf', true);
-            $publication_url = get_post_meta($post->ID, 'publication_url', true);
-            $flipkart = get_post_meta($post->ID, 'flipkart', true);
+            $pdf = get_post_meta($post_id, 'pdf', true);
+            $publication_url = get_post_meta($post_id, 'publication_url', true);
+            $flipkart = get_post_meta($post_id, 'flipkart', true);
             
             ?>
                 <div class="card text-center">
@@ -36,9 +38,21 @@ get_header();
                         <?php echo $image ?>
                     </div>
                     <div class="card-body">
-                        <a href="' . $pdf . '" class="btn knowmore" target="_blank">PDF</a>
-                        <a href="' . $publication_url . '" class="btn knowmore" target="_blank">Amazon</a>
-                        <a href="' . $flipkart . '" class="btn knowmore" target="_blank">Flipkart</a>
+                        <?php 
+                        
+                        if(!($pdf == '')){
+                        echo "<a href='$pdf' class='btn knowmore' target='_blank'><strong>PDF</strong></a>";
+                        }
+
+                        if(!($publication_url == '')){
+                        echo "<a href='$publication_url' class='btn knowmore' target='_blank'><strong>Amazon</strong></a>";
+                        }
+
+                        if(!($flipkart == '')){
+                        echo "<a href='$flipkart' class='btn knowmore' target='_blank'><strong>Flipkart</strong></a>";
+                        }
+
+                        ?>
                     </div>
                 </div>
                 <?php endwhile; endif; ?>
