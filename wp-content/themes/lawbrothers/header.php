@@ -49,45 +49,45 @@
                     </div>
                     <nav id="site-navigation" class="main-navigation">
                         <div class="header-block-right">
-                            <?php
-                                wp_nav_menu( array(
-                                    'theme_location' => 'social_links',
-                                ) );
-                            ?>
+                            <div class="custom-search-form">
+                                <?php echo get_search_form(); ?>
+                            </div>
                             <button class="menu-toggle navigation-toggle" aria-controls="primary-menu"
                                 aria-expanded="false">
                                 <span class="menu-icon"><span class="icon-toggle" role="button"
                                         aria-label="Toggle Navigation"><span class="lines"></span></span></span>
                             </button>
-
-
                         </div>
-
                         <div class="headerright">
                             <div class="mobile-menu">
-
                                 <div class="menu-row">
-                                    <div class="menu-block1">
+                                    <div class="logo-row">
+                                        <div class="brandlogo">
+                                            <?php the_custom_logo(); ?>
+                                        </div>
                                         <?php
-                                        wp_nav_menu( array(
-                                            'theme_location' => 'menu-1',
-                                            'menu_id' => 'primary-menu',
-                                        ) );
-                                     ?>
+                                            wp_nav_menu( array(
+                                                'theme_location' => 'social_links',
+                                            ) );
+                                        ?>
                                     </div>
                                     <div class="menu-block2">
                                         <?php
-                                        wp_nav_menu( array(
-                                            'theme_location' => 'menu-1',
-                                            'menu_id' => 'primary-menu',
-                                        ) );
-                                     ?>
+                                            wp_nav_menu( array(
+                                                'theme_location' => 'menu-1',
+                                                'menu_id' => 'primary-menu',
+                                            ) );
+                                        ?>
+                                        <div class="rightside-menu">
+                                            <?php
+                                            wp_nav_menu( array(
+                                                'theme_location' => 'mainmenu-right',
+                                            ) );
+                                        ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="custom-search-form">
-                            <?php echo get_search_form(); ?>
                         </div>
                     </nav>
                     <!-- #site-navigation -->
@@ -95,8 +95,6 @@
                 </div>
             </div>
         </header><!-- #masthead -->
-
-
 
         <header class="d-header" style="display:none;">
             <div class="d-logo"><a href="https://www.kcsitglobal.com/home" title=""><img
@@ -284,7 +282,6 @@
 
             </div>
         </header>
-
 
 
         <?php if ( is_front_page() ) : ?>

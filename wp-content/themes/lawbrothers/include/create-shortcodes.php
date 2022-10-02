@@ -253,9 +253,9 @@ class Create_Shortcodes{
 				$image = get_the_post_thumbnail(get_the_ID(), 'full');
 				$slider_output .= '<div class="card">
 					<div class="card-img">
-						<a href="' . $media_url . '">' .$image. '</a>
+						' .$image. '
 					</div>
-					<div class="card-body">
+					<div class="card-body" style="display:none;">
 						<a href="' . $media_url . '" class="btn knowmore">Know More</a>
 					</div>
 				</div>';

@@ -13,6 +13,7 @@ function meta_boxes_init() {
     add_meta_box('knowledge-hub', __('knowledge Extra Fields', 'text-domain'), 'knowledge_hub_meta', array('knowledge-hub'), 'advanced', 'default');
     add_meta_box('location', __('Extra Fields', 'text-domain'), 'location', array('location'), 'advanced', 'default');
     add_meta_box('clients', __('Extra Fields', 'text-domain'), 'client_meta', array('clients'), 'advanced', 'default');
+    add_meta_box('awards', __('Awards Extra Fields', 'text-domain'), 'awards_meta', array('awards'), 'advanced', 'default');
 }
 
 
@@ -154,6 +155,16 @@ function location() {
     echo '</tbody></table>';
 }   
 
+function awards_meta() {
+    global $post;
+    wp_nonce_field('metafield_data', 'metafield_nonce');
+    $cover_photo = get_post_meta($post->ID, 'cover_photo', true);
+    $cover_preview = !empty($cover_photo) ? "<img src='$cover_photo'>" : '';
+    echo '<table class="form-table"><tbody>';
+    echo '<tr><td>PDF</td><td><input style="width: 70%" id="cover_photo" name="cover_photo" type="text" value="' . $cover_photo . '"> <input style="width: 19%" class="button media" id="cover_photo_button" name="cover_photo_button" type="button" value="Upload" /><div class="cover_preview">' . $cover_preview . '</div></td></tr>';
+    echo '</tbody></table>';
+}
+
 function save_fields_all($post_id) {
 	
     if (!isset($_POST['metafield_nonce'])) {
@@ -229,6 +240,10 @@ function save_fields_all($post_id) {
     if ($post_type == 'clients') {
         update_post_meta($post_id, 'clienturl', $_POST['clienturl']);
         
+    }
+
+    if ($post_type == 'awards') {
+        update_post_meta($post_id, 'cover_photo', $_POST['cover_photo']);
     }
 }
 

@@ -49,7 +49,7 @@ get_header();
                         }
 
                         if(!($flipkart == '')){
-                        echo "<a href='$flipkart' class='btn knowmore' target='_blank'><strong>Flipkart</strong></a>";
+                        echo "<a href='$flipkart' class='btn knowmore' target='_blank'><strong>Others</strong></a>";
                         }
 
                         ?>

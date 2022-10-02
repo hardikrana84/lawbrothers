@@ -35,7 +35,7 @@ get_header();
                     <div class="card-img">
                         <a href="<?php echo $media_url ?>" target="_blank"><?php echo $image ?> </a>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="display:none;">
                         <a href="<?php echo $media_url ?>" class="btn knowmore" target="_blank">Know More</a>
                     </div>
                 </div>

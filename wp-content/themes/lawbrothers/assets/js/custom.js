@@ -53,6 +53,17 @@ jQuery(document).ready(function ($) {
       var title = $(slider.$slides[i]).data('title');
       return '<a class="title"> ' + title + ' </a>';
     },
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          customPaging: function (slider, i) {
+            var title = $(slider.$slides[i]).data('title');
+            return '';
+          },
+        },
+      },
+    ],
   });
 
   $('.ourteamslider').slick({
@@ -76,14 +87,14 @@ jQuery(document).ready(function ($) {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
           slidesToScroll: 1,
         },
       },
     ],
   });
 
-  mobileOnlySlider('.home-services', true, false, 767);
+  /*mobileOnlySlider('.home-services', true, false, 767);
   function mobileOnlySlider($slidername, $dots, $arrows, $breakpoint) {
     var slider = $($slidername);
     var settings = {
@@ -108,7 +119,7 @@ jQuery(document).ready(function ($) {
         return slider.slick(settings);
       }
     });
-  }
+  }*/
 
   $('.query-slider').slick({
     dots: true,
@@ -140,7 +151,7 @@ jQuery(document).ready(function ($) {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
           arrows: false,
           dots: false,
@@ -149,7 +160,7 @@ jQuery(document).ready(function ($) {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
           slidesToScroll: 1,
         },
       },
@@ -176,7 +187,7 @@ jQuery(document).ready(function ($) {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
           arrows: false,
           dots: false,
@@ -185,7 +196,7 @@ jQuery(document).ready(function ($) {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
           slidesToScroll: 1,
         },
       },
