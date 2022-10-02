@@ -10,28 +10,10 @@
 get_header();
 ?>
 <main id="primary" class="site-main">
-    <div class="container no-sidebar">
-        <header class="entry-header">
+    <div class="container">
+        <div class="single-left">
+
             <?php
-		if ( is_singular() ) :
-			the_title( '<h2 class="entry-title">', '</h2>' );
-		else :
-			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-		endif;
-
-		if ( 'post' === get_post_type() ) :
-			?>
-            <div class="entry-meta">
-                <?php
-				lawbrothers_posted_on();
-				lawbrothers_posted_by();
-				?>
-            </div><!-- .entry-meta -->
-            <?php endif; ?>
-
-        </header><!-- .entry-header -->
-
-        <?php
 		while ( have_posts() ) :
 			the_post();
 			
@@ -44,9 +26,12 @@ get_header();
 
 		endwhile; // End of the loop.
 		?>
+        </div>
+        <div class="single-right">
+            <?php dynamic_sidebar( 'our-team' ); ?>
+        </div>
     </div>
 </main><!-- #main -->
 
 <?php
-
 get_footer();

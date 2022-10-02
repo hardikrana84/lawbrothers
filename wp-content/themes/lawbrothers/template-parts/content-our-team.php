@@ -55,13 +55,15 @@
 		$imageurl = get_the_post_thumbnail_url(get_the_ID(),'full');
 		$image = get_the_post_thumbnail(get_the_ID(), 'full');
 		$slider_output .= '<div class="vc_row container memberdetails">
-								<div class="vc_col-sm-8">
-									<span class="membertitle">'.$title.'</span> 
-									<span class="memberdesignation">'.$designation.' </span>
+								<div class="vc_col-sm-5">
+								    <div class="our-team-photo">'.$image.'</div>
 								</div> 
-								<div class="vc_col-sm-4">
-									<span class="memberemail"><i class="far fa-envelope" aria-hidden="true"> </i><a href="mailto:'.$emailid.'"> '.$emailid.'</a> </span>
-									<span class="memberlocation"><i class="fa fa-map-marker" aria-hidden="true"> </i> '.$memberlocation.'</span>
+								<div class="vc_col-sm-7 member-data">
+									<h3>'.$title.'</h3> 
+									<p class="memberdesignation">'.$designation.' </p>
+									<p class="memberemail"><i class="far fa-envelope" aria-hidden="true"> </i><a href="mailto:'.$emailid.'"> '.$emailid.'</a> </p>
+									<p><i class="fa fa-phone" aria-hidden="true"> </i> '.$phonenumber.'</p>
+									<p class="memberlocation"><i class="fa fa-map-marker" aria-hidden="true"> </i> '.$memberlocation.'</p>
 								</div>
 							</div>';
 		echo $slider_output;

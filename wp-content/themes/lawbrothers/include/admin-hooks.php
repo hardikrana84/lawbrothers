@@ -64,11 +64,21 @@ class Admin_Hook{
 			'after_title'   => '</h2>',
 		);
 		register_sidebar($args);
+		$args = array(
+			'name'          => __( 'Our Team', 'hr-theme' ),
+			'id'            => 'our-team',
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h2 class="widgettitle">',
+			'after_title'   => '</h2>',
+		);
+		register_sidebar($args);
 	}
 	public function register_navs() {
 		$locations = array(
 			'footer_menu' => __( 'Footer menu', 'hr-theme' ),
 			'social_links' => __( 'Social links', 'hr-theme' ),
+			'mainmenu-right' => __( 'Right Menu', 'hr-theme' ),
 		);
 		register_nav_menus( $locations );
 	}
