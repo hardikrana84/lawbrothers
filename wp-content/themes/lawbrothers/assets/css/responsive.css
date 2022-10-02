@@ -12,35 +12,11 @@
 
 @media only screen and (min-width: 768px) and (max-width: 1200px){
   body{ overflow-x: hidden;}
-  /* .entry-content{ overflow-x: hidden;}
-  .footerrow1 .container{ flex-wrap: wrap;}
-  .footerrow1 .block{ padding: 0px; margin-bottom: 35px;}
-  .border-shadow{ padding-bottom: 0px;}
-  .mainbanner{background-size: 100% 100%;}
-  .mainslider .slick-prev{left:10px}
-  .mainslider .slick-next{right:10px}
-  .whoweareright{padding-left:15px; padding-right: 15px;}
-  .getintouchrow .col-lg-3{ margin-top: 20px;}
-  .whatwedorow, .whychooseus{padding: 30px 0px;}
-  .whatwedorow{ padding-left: 15px; padding-right: 15px; background-image: none;}
-  .practicearearow .container .card{width: 50%;}
-  .practicearearow .container .card:nth-child(3n+0){border-right: 1px solid #e7e7e7;}
-  .touchtoday{padding-right:15px; width: 50%;}
-  .touchtoday p.detail{ font-size: 22px;}
-  .formright{ width: 50%;}
-  .testimonialrow .testimonialblock{ height: auto;}
-  .getintouchbtn{ font-size: 17px;} */
+
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px){
-  /* body{ overflow-x: hidden;}
-  .navbar-dark .navbar-toggler-icon{ background-image: none;}
-  .collapse:not(.show){display: none !important;}
-  .navbar .nav-item{padding:5px 0px;}
-  .navbar-expand-md .navbar-toggler{ display: block;}
-  .navigation-toggle{ display: inline-block; background: var(--blue); position: absolute; top: 0px; right: 0px; width:50px; height:50px; border-radius: 0px;}
-  .navbar-collapse{ position: absolute; top:calc(100%); right:0px; width: 100%; background: var(--blue); -webkit-transition:all .5s ease-in-out;-moz-transition:all .5s ease-in-out;-o-transition:all .5s ease-in-out;transition:all .5s ease-in-out; z-index: 9; padding:0px;}
-  .navbar-expand-md .nav-item.phonenumber{ display: none;} */
+
   
   
 }
